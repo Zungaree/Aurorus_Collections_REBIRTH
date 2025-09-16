@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h1>Checkout</h1>
+      <div class="row">
+        <section class="grow">
+          <h2>Shipping</h2>
+          <div class="controls">
+            <label class="chip"><input type="radio" name="shipping" value="delivery" checked /> Delivery</label>
+            <label class="chip"><input type="radio" name="shipping" value="pickup" /> Store Pickup</label>
+          </div>
+          <div id="address-form">
+            <label class="label" for="name">Full Name</label>
+            <input id="name" class="input" />
+            <label class="label" for="address">Address</label>
+            <input id="address" class="input" />
+            <label class="label" for="city">City</label>
+            <input id="city" class="input" />
+            <label class="label" for="zip">ZIP</label>
+            <input id="zip" class="input" />
+          </div>
+
+          <h2>Payment</h2>
+          <div class="controls">
+            <label class="chip"><input type="radio" name="payment" value="gcash" checked /> GCash</label>
+            <label class="chip"><input type="radio" name="payment" value="paymaya" /> PayMaya</label>
+          </div>
+          <div id="payment-proof">
+            <label class="label" for="ref">Reference Number</label>
+            <input id="ref" class="input" />
+            <label class="label" for="screenshot">Payment Screenshot (required)</label>
+            <input id="screenshot" type="file" accept="image/*" />
+            <div id="preview" class="section hidden"></div>
+          </div>
+
+          <button class="btn" id="place-order">Place Order</button>
+          <div id="success" class="section hidden"></div>
+        </section>
+        <aside class="grow">
+          <h2>Order Summary</h2>
+          <div id="order-items"></div>
+          <p class="row" style="justify-content:space-between"><span>Total</span><strong id="order-total">₱0.00</strong></p>
+        </aside>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="js/checkout.js"></script>
+  </body>
+</html>

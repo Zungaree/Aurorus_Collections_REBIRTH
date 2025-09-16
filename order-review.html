@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Review - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="breadcrumb">
+        <a href="cart.html">Cart</a>
+        <span>›</span>
+        <span>Order Review</span>
+        <span>›</span>
+        <span>Payment</span>
+      </div>
+
+      <h1>Review Your Order</h1>
+      
+      <div class="row">
+        <section class="grow">
+          <div class="card">
+            <div class="card-header">
+              <h2>Order Items</h2>
+            </div>
+            <div class="card-body">
+              <div id="order-items-list"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Shipping Information</h2>
+            </div>
+            <div class="card-body">
+              <div class="controls">
+                <label class="chip">
+                  <input type="radio" name="shipping" value="delivery" checked />
+                  <span>Delivery</span>
+                </label>
+                <label class="chip">
+                  <input type="radio" name="shipping" value="pickup" />
+                  <span>Store Pickup</span>
+                </label>
+              </div>
+              
+              <div class="form-group" style="margin-top: 20px;">
+                <label class="label">Payment Method <span class="required">*</span></label>
+                <div class="payment-methods">
+                  <label class="payment-option">
+                    <input type="radio" name="payment" value="cash" />
+                    <div class="payment-card">
+                      <div class="payment-icon">💵</div>
+                      <div class="payment-info">
+                        <h3>Cash (In-Store)</h3>
+                        <p>Pay with cash when you pick up your order</p>
+                        <span class="payment-note">Available for store pickup only</span>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="payment-option">
+                    <input type="radio" name="payment" value="credits" />
+                    <div class="payment-card">
+                      <div class="payment-icon">🎫</div>
+                      <div class="payment-info">
+                        <h3>Store Credits</h3>
+                        <p>Use your available store credit balance</p>
+                        <span class="payment-note">Available for store pickup only</span>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="payment-option">
+                    <input type="radio" name="payment" value="gcash" />
+                    <div class="payment-card">
+                      <div class="payment-icon">📱</div>
+                      <div class="payment-info">
+                        <h3>GCash</h3>
+                        <p>Pay using GCash digital wallet</p>
+                        <span class="payment-note">Secure online payment</span>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="payment-option">
+                    <input type="radio" name="payment" value="maya" />
+                    <div class="payment-card">
+                      <div class="payment-icon">💳</div>
+                      <div class="payment-info">
+                        <h3>Maya</h3>
+                        <p>Pay using Maya digital wallet</p>
+                        <span class="payment-note">Secure online payment</span>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+
+                <div id="payment-warning" class="alert alert-warning hidden">
+                  <strong>Note:</strong> Cash and Store Credits are only available for store pickup orders.
+                </div>
+              </div>
+              
+              <div id="address-form">
+                <div class="form-group">
+                  <label class="label" for="name">Full Name <span class="required">*</span></label>
+                  <input id="name" class="input" placeholder="Enter your full name" required />
+                </div>
+                <div class="form-group">
+                  <label class="label" for="address">Address <span class="required">*</span></label>
+                  <input id="address" class="input" placeholder="Enter your address" required />
+                </div>
+                <div class="form-group">
+                  <label class="label" for="city">City <span class="required">*</span></label>
+                  <input id="city" class="input" placeholder="Enter your city" required />
+                </div>
+                <div class="form-group">
+                  <label class="label" for="zip">ZIP Code <span class="required">*</span></label>
+                  <input id="zip" class="input" placeholder="Enter ZIP code" required />
+                </div>
+              </div>
+
+              <div id="pickup-info" class="hidden">
+                <div class="alert alert-info">
+                  <strong>Store Pickup Location:</strong><br>
+                  Aurorus Connect Store<br>
+                  123 Gaming Street, Manila, Philippines<br>
+                  <em>Please bring a valid ID for pickup</em>
+                </div>
+                <div class="form-group">
+                  <label class="label" for="pickup-name">Full Name <span class="required">*</span></label>
+                  <input id="pickup-name" class="input" placeholder="Enter your full name for pickup" required />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="grow">
+          <div class="card">
+            <div class="card-header">
+              <h2>Order Summary</h2>
+            </div>
+            <div class="card-body">
+              <div class="order-summary">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="subtotal">₱0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Shipping</span>
+                  <span id="shipping-cost">₱0.00</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total</span>
+                  <span id="total">₱0.00</span>
+                </div>
+              </div>
+              
+              <button class="btn btn-primary btn-block" id="proceed-to-payment">
+                Complete Order
+              </button>
+              
+              <a href="cart.html" class="btn btn-outline btn-block">
+                Back to Cart
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="js/order-review.js"></script>
+  </body>
+</html>

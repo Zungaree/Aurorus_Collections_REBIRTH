@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body class="theme-gamer">
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html" aria-current="page">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="banner">
+        <div class="banner-media" style="background-image:url('assets/img/kmedia/events_hero.jpg')"></div>
+        <div class="banner-content">
+          <div class="accent-chip">Join the community</div>
+          <h1>Store Events</h1>
+          <p>From tournaments to pre-releases and casual nights—find your next game.</p>
+        </div>
+      </section>
+
+      <section class="filters-card">
+        <div class="controls">
+          <input id="event-search" class="input" type="search" placeholder="Search events..." aria-label="Search events" />
+          <select id="event-game" multiple aria-label="Filter by game">
+            <option>Pokémon</option>
+            <option>MTG</option>
+            <option>Vanguard</option>
+          </select>
+          <select id="event-type" aria-label="Filter by type">
+            <option value="">All Types</option>
+            <option>Tournament</option>
+            <option>Pre-Release</option>
+            <option>Casual</option>
+          </select>
+          <select id="event-date" aria-label="Date range">
+            <option value="upcoming">Upcoming</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="all">All</option>
+          </select>
+          <select id="event-city" aria-label="City"></select>
+          <label class="chip"><input type="checkbox" id="event-available" /> Show only spots left</label>
+          <select id="event-sort" aria-label="Sort">
+            <option value="soon">Soonest</option>
+            <option value="fee-asc">Fee: Low to High</option>
+            <option value="fee-desc">Fee: High to Low</option>
+            <option value="name-asc">Name: A–Z</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="muted" id="event-summary"></div>
+        <div id="events-grid" class="grid" aria-live="polite"></div>
+        <nav class="row" id="event-pagination" aria-label="Pagination"></nav>
+      </section>
+
+      <section class="section" id="past-champions-section" aria-labelledby="past-champions-title">
+        <h2 class="card-title" id="past-champions-title">Past Champions</h2>
+        <div id="past-champions" class="grid"></div>
+      </section>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="javascript/firebase/events-realtime.js"></script>
+  </body>
+</html>

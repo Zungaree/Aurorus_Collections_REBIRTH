@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Payment - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="breadcrumb">
+        <a href="cart.html">Cart</a>
+        <span>›</span>
+        <a href="order-review.html">Order Review</a>
+        <span>›</span>
+        <a href="payment-method.html">Payment Method</a>
+        <span>›</span>
+        <span>Digital Payment</span>
+        <span>›</span>
+        <span>Confirmation</span>
+      </div>
+
+      <h1>Complete Your Payment</h1>
+      
+      <div class="row">
+        <section class="grow">
+          <div class="card">
+            <div class="card-header">
+              <h2 id="payment-method-title">GCash Payment</h2>
+            </div>
+            <div class="card-body">
+              <div class="payment-instructions">
+                <div class="instruction-step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h3>Scan QR Code</h3>
+                    <p>Open your <span id="wallet-name">GCash</span> app and scan the QR code below</p>
+                  </div>
+                </div>
+                
+                <div class="qr-code-container">
+                  <div class="qr-code">
+                    <img id="qr-code-image" src="assets/gcash-qr.png" alt="GCash QR Code" />
+                  </div>
+                  <div class="qr-info">
+                    <p><strong>Amount:</strong> <span id="payment-amount">₱0.00</span></p>
+                    <p><strong>Reference:</strong> <span id="payment-reference">AURORUS-ORDER</span></p>
+                  </div>
+                </div>
+
+                <div class="instruction-step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h3>Upload Payment Proof</h3>
+                    <p>Take a screenshot of your payment confirmation and upload it below</p>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="reference-id">Reference ID / Transaction ID</label>
+                  <input id="reference-id" class="input" placeholder="Enter your transaction reference ID" required />
+                  <small class="form-help">This is the reference number from your payment confirmation</small>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="payment-screenshot">Payment Screenshot</label>
+                  <input id="payment-screenshot" type="file" accept="image/*" class="input" required />
+                  <small class="form-help">Upload a clear screenshot of your payment confirmation</small>
+                </div>
+
+                <div id="screenshot-preview" class="screenshot-preview hidden">
+                  <img id="preview-image" src="" alt="Payment screenshot preview" />
+                  <button type="button" id="remove-screenshot" class="btn btn-outline btn-sm">Remove</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="grow">
+          <div class="card">
+            <div class="card-header">
+              <h2>Order Summary</h2>
+            </div>
+            <div class="card-body">
+              <div class="order-summary">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span id="subtotal">₱0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Shipping</span>
+                  <span id="shipping-cost">₱0.00</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total</span>
+                  <span id="total">₱0.00</span>
+                </div>
+              </div>
+              
+              <div class="payment-info">
+                <h3>Payment Method</h3>
+                <p id="selected-payment-method">GCash</p>
+                <p class="muted">Digital Wallet Payment</p>
+              </div>
+              
+              <button class="btn btn-primary btn-block" id="submit-payment" disabled>
+                Submit Payment Proof
+              </button>
+              
+              <a href="payment-method.html" class="btn btn-outline btn-block">
+                Back to Payment Method
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="js/payment-digital.js"></script>
+  </body>
+</html>
+
+
+
+
+

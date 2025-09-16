@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <div class="header-tools">
+          <form id="site-search" role="search" action="products.html" method="GET">
+            <input class="input" type="search" name="q" placeholder="Search products..." aria-label="Search" />
+            <button class="btn" type="submit">Search</button>
+          </form>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html" aria-current="page">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html" aria-label="Cart">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+      <div class="categories" aria-label="Categories">
+        <a href="products.html?category=Singles">Singles</a>
+        <a href="products.html?category=Sealed%20Products">Sealed Products</a>
+        <a href="products.html?category=Accessories">Accessories</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="banner">
+        <div class="banner-media" style="background-image:url('assets/img/kmedia/products_hero.jpg')"></div>
+        <div class="banner-content">
+          <div class="accent-chip">New arrivals weekly</div>
+          <h1>Shop Products</h1>
+          <p>Singles, sealed, and accessories in fresh drops.</p>
+        </div>
+      </section>
+
+      <section class="filters-card">
+        <div class="controls">
+          <input id="search" class="input" type="search" placeholder="Search products..." aria-label="Search products" />
+          <select id="category">
+            <option value="">All Categories</option>
+            <option>Singles</option>
+            <option>Sealed Products</option>
+            <option>Accessories</option>
+          </select>
+          <select id="availability">
+            <option value="">All Availability</option>
+            <option>In Stock</option>
+            <option>Pre-order</option>
+          </select>
+          <select id="sort">
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name-asc">Name: A–Z</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="muted" id="summary"></div>
+        <div id="catalog-grid" class="grid" aria-live="polite"></div>
+        <nav class="row" id="pagination" aria-label="Pagination"></nav>
+      </section>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="javascript/firebase/products-realtime.js"></script>
+  </body>
+</html>

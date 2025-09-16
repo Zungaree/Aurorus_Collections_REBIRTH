@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="order-confirmation">
+        <div class="confirmation-header">
+          <div class="success-icon">✅</div>
+          <h1>Order Confirmed!</h1>
+          <p class="confirmation-message">Thank you for your order. We've received your payment and will process your order shortly.</p>
+        </div>
+
+        <div class="row">
+          <section class="grow">
+            <div class="card">
+              <div class="card-header">
+                <h2>Order Details</h2>
+              </div>
+              <div class="card-body">
+                <div class="order-info">
+                  <div class="info-row">
+                    <span class="label">Order ID:</span>
+                    <span class="value" id="order-id">ORD-20241201-1234</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="label">Order Date:</span>
+                    <span class="value" id="order-date">December 1, 2024</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="label">Status:</span>
+                    <span class="value status" id="order-status">Pending</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="label">Payment Method:</span>
+                    <span class="value" id="payment-method">GCash</span>
+                  </div>
+                </div>
+
+                <div class="order-items">
+                  <h3>Items Ordered</h3>
+                  <div id="order-items-list"></div>
+                </div>
+
+                <div class="order-totals">
+                  <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₱0.00</span>
+                  </div>
+                  <div class="total-row">
+                    <span>Shipping:</span>
+                    <span id="shipping-cost">₱0.00</span>
+                  </div>
+                  <div class="total-row total">
+                    <span>Total:</span>
+                    <span id="total">₱0.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Shipping Information</h2>
+              </div>
+              <div class="card-body">
+                <div id="shipping-info"></div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="grow">
+            <div class="card">
+              <div class="card-header">
+                <h2>What's Next?</h2>
+              </div>
+              <div class="card-body">
+                <div class="next-steps">
+                  <div class="step">
+                    <div class="step-icon">📧</div>
+                    <div class="step-content">
+                      <h3>Email Confirmation</h3>
+                      <p>You'll receive an email confirmation shortly with your order details.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="step">
+                    <div class="step-icon">⏳</div>
+                    <div class="step-content">
+                      <h3>Order Processing</h3>
+                      <p id="processing-message">We're reviewing your payment and will update your order status soon.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="step">
+                    <div class="step-icon">📦</div>
+                    <div class="step-content">
+                      <h3>Fulfillment</h3>
+                      <p id="fulfillment-message">Once confirmed, we'll prepare your order for shipping or pickup.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="action-buttons">
+                  <a href="orders.html" class="btn btn-primary btn-block">
+                    View My Orders
+                  </a>
+                  <a href="products.html" class="btn btn-outline btn-block">
+                    Continue Shopping
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Need Help?</h2>
+              </div>
+              <div class="card-body">
+                <div class="help-info">
+                  <p>If you have any questions about your order, please contact us:</p>
+                  <div class="contact-info">
+                    <p><strong>Email:</strong> support@aurorus.com</p>
+                    <p><strong>Phone:</strong> +63 123 456 7890</p>
+                    <p><strong>Hours:</strong> Mon-Fri 9AM-6PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="js/order-confirmation.js"></script>
+  </body>
+</html>
+
+
+
+
+

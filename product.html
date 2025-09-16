@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product - Aurorus</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html">Aurorus</a>
+        <div class="header-tools">
+          <form id="site-search" role="search" action="products.html" method="GET">
+            <input class="input" type="search" name="q" placeholder="Search products..." aria-label="Search" />
+            <button class="btn" type="submit">Search</button>
+          </form>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li><a class="cart-link" href="cart.html">🛒<span class="cart-badge">0</span></a></li>
+        </ul>
+      </nav>
+      <div class="categories" aria-label="Categories">
+        <a href="products.html?category=Singles">Singles</a>
+        <a href="products.html?category=Sealed%20Products">Sealed Products</a>
+        <a href="products.html?category=Accessories">Accessories</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="row">
+        <div class="grow" id="image-col"></div>
+        <aside class="grow buy-box" id="details-col"></aside>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="javascript/firebase/product-page-realtime.js"></script>
+  </body>
+</html>

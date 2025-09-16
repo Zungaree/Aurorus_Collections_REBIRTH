@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurorus Connect REBORN</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="Aurorus Home">Aurorus</a>
+        <div class="header-tools">
+          <form id="site-search" role="search" action="products.html" method="GET">
+            <input class="input" type="search" name="q" placeholder="Search products..." aria-label="Search" />
+            <button class="btn" type="submit">Search</button>
+          </form>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="products.html">Products</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a id="my-orders-link" class="hidden" href="orders.html">My Orders</a></li>
+          <li><a id="sign-in-btn" href="#">Sign In</a></li>
+          <li><a id="sign-out-btn" class="hidden" href="#">Sign Out</a></li>
+          <li>
+            <a class="cart-link" href="cart.html" aria-label="Cart">
+              🛒<span class="cart-badge" aria-live="polite" aria-atomic="true">0</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="categories" aria-label="Categories">
+        <a href="products.html?category=Singles">Singles</a>
+        <a href="products.html?category=Sealed%20Products">Sealed Products</a>
+        <a href="products.html?category=Accessories">Accessories</a>
+      </div>
+      <div class="strip strip-preorder" role="note">
+        New pre-release items available now — secure your pre-orders today!
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Welcome to Aurorus</h1>
+        <p>Your destination for TCG singles, sealed products, and accessories.</p>
+        <div class="hero-cta">
+          <a class="btn" href="products.html">Shop Products</a>
+          <a class="btn btn-outline" href="events.html">Browse Events</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Featured Products</h2>
+          <a class="link" href="products.html">View all</a>
+        </div>
+        <div id="featured-grid" class="grid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Aurorus. All rights reserved.</p>
+    </footer>
+
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="javascript/firebase/firebase-config.js"></script>
+    <script type="module" src="javascript/firebase/auth.js"></script>
+    <script type="module" src="javascript/firebase/products-realtime.js"></script>
+    <script type="module">
+      import { qs } from './js/ui.js';
+      import { setupNavToggle, updateNavbarCartBadge } from './js/ui.js';
+      setupNavToggle();
+      updateNavbarCartBadge();
+      qs('#year').textContent = String(new Date().getFullYear());
+    </script>
+  </body>
+</html>
