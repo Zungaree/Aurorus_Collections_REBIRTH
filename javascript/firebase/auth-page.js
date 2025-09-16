@@ -1,5 +1,6 @@
-import { auth } from './firebase-config.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
+import { auth, db } from './firebase-config.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
+import { ref, set } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js';
 import { qs, showToast } from '../../js/ui.js';
 
 const emailEl = qs('#email');
@@ -9,8 +10,19 @@ const toggleBtn = qs('#toggle-mode');
 const submitBtn = qs('#submit-btn');
 const modeSub = qs('#mode-sub');
 const title = qs('#mode-title');
+// Signup-only fields
+const firstNameEl = qs('#first-name');
+const middleNameEl = qs('#middle-name');
+const lastNameEl = qs('#last-name');
+const birthdateEl = qs('#birthdate');
+const genderEl = qs('#gender');
+const profileEl = qs('#profile-picture');
+const signupFields = qs('#signup-fields');
+const confirmWrap = qs('#confirm-password-wrap');
+const confirmPassEl = qs('#confirm-password');
 
 let isSignup = false;
+let authFlowActive = false; // prevent onAuthStateChanged redirect during processing
 
 const getRedirect = () => new URLSearchParams(location.search).get('redirect') || 'index.html';
 
@@ -20,6 +32,9 @@ const setMode = (signup) => {
   title.textContent = signup? 'Create Account' : 'Sign In';
   modeSub.textContent = signup? 'Create your account to continue.' : 'Welcome back. Use your email and password.';
   toggleBtn.textContent = signup? 'I already have an account' : 'Create an account';
+  signupFields?.classList.toggle('hidden', !signup);
+  confirmWrap?.classList.toggle('hidden', !signup);
+  passEl.setAttribute('autocomplete', signup? 'new-password':'current-password');
 };
 
 setMode(false);
@@ -28,6 +43,7 @@ setMode(false);
 onAuthStateChanged(auth, (user) => {
   console.log('Auth page - Auth state changed:', user ? 'User signed in' : 'User signed out');
   if (user) {
+    if (authFlowActive) { return; }
     // User is already signed in, redirect them
     const redirect = getRedirect();
     console.log('Redirecting to:', redirect);
@@ -41,16 +57,60 @@ onAuthStateChanged(auth, (user) => {
 
 toggleBtn.addEventListener('click', ()=> setMode(!isSignup));
 
+const readFileAsBase64 = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = () => reject(new Error('Failed to read file'));
+  reader.readAsDataURL(file);
+});
+
 form.addEventListener('submit', async (e)=>{
   e.preventDefault();
   submitBtn.disabled = true;
   submitBtn.textContent = isSignup ? 'Creating Account...' : 'Signing In...';
+  authFlowActive = true;
   
   try{
     if(isSignup){
-      const cred = await createUserWithEmailAndPassword(auth, emailEl.value.trim(), passEl.value);
-      await updateProfile(cred.user, { displayName: cred.user.email.split('@')[0] });
-      showToast('Account created successfully!');
+      // Validate fields to mirror mobile app
+      const first = firstNameEl?.value.trim()||'';
+      const middle = middleNameEl?.value.trim()||'';
+      const last = lastNameEl?.value.trim()||'';
+      const birth = birthdateEl?.value.trim()||'';
+      const gender = genderEl?.value.trim()||'';
+      if(!first){ showToast('First name is required', 'error'); throw new Error('validation'); }
+      if(!last){ showToast('Last name is required', 'error'); throw new Error('validation'); }
+      if(middle===''){ showToast('Middle name is required', 'error'); throw new Error('validation'); }
+      if(!birth){ showToast('Birthdate is required', 'error'); throw new Error('validation'); }
+      if(!gender || !(gender==='Male' || gender==='Female')){ showToast('Select gender: Male or Female', 'error'); throw new Error('validation'); }
+      const email = emailEl.value.trim();
+      const pass = passEl.value;
+      const confirm = confirmPassEl?.value||'';
+      if(!email){ showToast('Email is required', 'error'); throw new Error('validation'); }
+      if(!pass){ showToast('Password is required', 'error'); throw new Error('validation'); }
+      if(pass.length<6){ showToast('Password should be at least 6 characters', 'error'); throw new Error('validation'); }
+      if(pass!==confirm){ showToast('Passwords do not match', 'error'); throw new Error('validation'); }
+      const file = profileEl?.files?.[0];
+      if(!file){ showToast('Profile picture is required', 'error'); throw new Error('validation'); }
+
+      const fullName = middle? `${first} ${middle} ${last}` : `${first} ${last}`;
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await updateProfile(cred.user, { displayName: fullName });
+      try { await sendEmailVerification(cred.user); } catch {}
+      // Prepare user record with base64 profile picture
+      const base64 = await readFileAsBase64(file);
+      const uid = cred.user.uid;
+      const userData = {
+        name: fullName,
+        email,
+        createdAt: Date.now(),
+        middleName: middle,
+        birthdate: birth,
+        gender,
+        profilePicture: base64
+      };
+      await set(ref(db, `users/${uid}`), userData);
+      showToast('Account created! Please verify your email.');
     } else {
       await signInWithEmailAndPassword(auth, emailEl.value.trim(), passEl.value);
       showToast('Signed in successfully!');
@@ -81,5 +141,7 @@ form.addEventListener('submit', async (e)=>{
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = isSignup ? 'Create Account' : 'Sign In';
+    // Let the redirect happen (either our manual one or the auth state one)
+    setTimeout(()=>{ authFlowActive = false; }, 500);
   }
 });
