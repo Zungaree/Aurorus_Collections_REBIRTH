@@ -184,11 +184,7 @@ const checkStock = async () => {
   return insufficient;
 };
 
-const clearSelectedFromCart = async (itemIds) => {
-  // This would need to be implemented based on your cart system
-  // For now, we'll just clear the checkout selection
-  clearCheckoutSelection();
-};
+// Use the imported clearSelectedFromCart from storage.js
 
 const handleSubmitPayment = async () => {
   if (!validateForm()) {
