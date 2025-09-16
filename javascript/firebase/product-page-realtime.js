@@ -45,7 +45,7 @@ const render = (p) => {
     add();
     const selectedItem = [{ productId:id, name:p.productName, price:Number(p.price||0), image:toImageSrc(p.image), quantity, isPreOrder:!inStock }];
     setCheckoutSelection(selectedItem, [id], quantity * Number(p.price||0));
-    location.href = 'checkout.html';
+    location.href = 'order-review.html';
   });
 };
 
