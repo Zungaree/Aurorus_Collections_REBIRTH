@@ -1,0 +1,52 @@
+@import url('./global.css');
+
+/* Events page layout */
+.banner{margin:12px 24px;border-radius:16px}
+
+.filters-card{margin-top:8px}
+.filters-card .controls{display:grid;grid-template-columns:repeat(12,1fr);gap:12px 12px;align-items:center}
+.filters-card .controls .input, .filters-card .controls select{min-height:40px}
+/* Match index search bar visual for events search */
+#event-search{width:100%;padding-left:40px;background:no-repeat 12px center/18px 18px url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2218%22 height=%2218%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%235bc0ff%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Ccircle cx=%2211%22 cy=%2211%22 r=%228%22/%3E%3Cline x1=%2221%22 y1=%2221%22 x2=%2216.65%22 y2=%2216.65%22/%3E%3C/svg%3E')}
+#event-search:focus{border-color:rgba(91,192,255,.5)}
+/* Desktop column plan */
+#event-search{grid-column:span 6}
+#event-game{grid-column:span 3}
+#event-type{grid-column:span 3}
+#event-date{grid-column:span 2}
+#event-city{grid-column:span 2}
+#event-sort{grid-column:span 2}
+.filters-card .controls label.chip:has(#event-available){grid-column:span 2}
+/* Keep search visually wider if space allows */
+@media (min-width: 1200px){ #event-search{grid-column:span 7} #event-game{grid-column:span 3} }
+/* Tablet */
+@media (max-width: 1024px){
+  #event-search{grid-column:span 12}
+  #event-game,#event-type,#event-date,#event-city{grid-column:span 6}
+  #event-sort,.filters-card .controls label.chip:has(#event-available){grid-column:span 6}
+}
+/* Mobile */
+@media (max-width: 640px){
+  .filters-card .controls{grid-template-columns:1fr}
+  .filters-card .controls > *{grid-column:1}
+}
+
+/* Events grid */
+#events-grid{grid-template-columns:repeat(3,1fr)}
+@media (max-width: 1100px){#events-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width: 680px){#events-grid{grid-template-columns:1fr}}
+
+.event-card{display:flex;flex-direction:column;height:100%}
+.event-media{aspect-ratio:16/9;background:#0e1626 center/cover no-repeat}
+.event-body{padding:14px;display:flex;flex-direction:column;gap:8px}
+.event-title{margin:0}
+.event-meta{display:flex;flex-wrap:wrap;gap:8px;color:var(--aurorus-text-muted)}
+.event-actions{display:flex;gap:10px;margin-top:auto}
+
+/* Past champions */
+#past-champions{grid-template-columns:repeat(6,1fr)}
+@media (max-width: 1200px){#past-champions{grid-template-columns:repeat(4,1fr)}}
+@media (max-width: 800px){#past-champions{grid-template-columns:repeat(3,1fr)}}
+@media (max-width: 600px){#past-champions{grid-template-columns:repeat(2,1fr)}}
+
+

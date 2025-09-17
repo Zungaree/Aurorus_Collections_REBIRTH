@@ -1,0 +1,28 @@
+@import url('./global.css');
+
+/* Home page hero */
+.hero{position:relative;margin:16px 24px;padding:42px 24px;border-radius:18px;background:linear-gradient(135deg,rgba(91,192,255,.18),rgba(167,181,255,.14));border:1px solid var(--aurorus-border);overflow:hidden}
+.hero::after{content:"";position:absolute;inset:-40% -20% auto auto;width:60%;height:200%;background:radial-gradient(closest-side,rgba(91,192,255,.18),transparent 60%);transform:rotate(20deg)}
+.hero h1{margin:0 0 6px;font-size:2.25rem;letter-spacing:.4px}
+.hero p{margin:0 0 16px;color:var(--aurorus-text-muted)}
+.hero-cta{display:flex;gap:12px}
+
+/* Featured section grid cards */
+#featured-grid{grid-template-columns:repeat(4,1fr)}
+#featured-grid .card{transition:transform .12s ease,box-shadow .2s ease}
+#featured-grid .card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(18,32,56,.55)}
+
+@media (max-width: 1000px){
+  #featured-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width: 720px){
+  #featured-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width: 520px){
+  #featured-grid{grid-template-columns:1fr}
+  .hero{margin:12px;padding:28px 16px}
+  .hero-cta{flex-direction:column}
+}
+
+
+

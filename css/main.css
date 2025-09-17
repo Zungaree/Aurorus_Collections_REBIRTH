@@ -1,0 +1,46 @@
+@import url('./global.css');
+
+/* Page-level defaults shared by most pages */
+.container{padding-top:24px}
+
+/* Specific header tweaks for pages using main.css */
+.site-header .navbar{padding:14px 24px}
+.site-header .categories{padding-bottom:16px}
+
+/* Generic grid for product listings */
+.grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(4,1fr)}
+.grid#featured-grid .card,.grid#catalog-grid .card{transition:transform .12s ease,box-shadow .2s ease}
+.grid#featured-grid .card:hover,.grid#catalog-grid .card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(18,32,56,.55)}
+
+/* Product card */
+.product-card-media{aspect-ratio:4/3;background:#0e1626 url('../assets/Aurorus_Logo.png') center/60% no-repeat}
+.product-price{display:flex;align-items:center;gap:8px;font-weight:800}
+.price{color:var(--aurorus-accent)}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--aurorus-border);color:var(--aurorus-text-muted);font-size:.75rem}
+.badge.badge-pre{border-color:rgba(255,226,122,.5);color:var(--aurorus-accent);background:rgba(255,226,122,.08)}
+
+/* Buy box on product page */
+.buy-box{position:sticky;top:94px;align-self:flex-start;background:var(--aurorus-elev);border:1px solid var(--aurorus-border);border-radius:16px;padding:16px;box-shadow:var(--shadow-color)}
+.buy-box .actions{display:flex;gap:10px;margin-top:10px}
+
+/* Banner common spacing override */
+.banner{margin-top:8px}
+
+/* Pagination row */
+.row#pagination{justify-content:center;gap:8px}
+.row#pagination .btn{padding:8px 12px}
+
+/* Responsive */
+@media (max-width: 1100px){
+  .grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width: 780px){
+  .grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(2,1fr)}
+  .buy-box{position:static}
+}
+@media (max-width: 520px){
+  .grid#featured-grid,.grid#catalog-grid{grid-template-columns:1fr}
+}
+
+
+
