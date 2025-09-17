@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In - Aurorus</title>
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/auth.css" />
   </head>
   <body>
     <header class="site-header">
@@ -23,33 +24,25 @@
         <h1 style="margin:0 0 8px" id="mode-title">Sign In</h1>
         <p class="muted" id="mode-sub">Welcome back. Use your email and password.</p>
         <form id="auth-form" class="section" style="margin-top:12px">
-          <div id="signup-fields" class="signup-fields hidden">
-            <label class="label" for="first-name">First Name</label>
-            <input id="first-name" class="input" type="text" autocomplete="given-name" />
-            <label class="label" for="middle-name">Middle Name</label>
-            <input id="middle-name" class="input" type="text" />
-            <label class="label" for="last-name">Last Name</label>
-            <input id="last-name" class="input" type="text" autocomplete="family-name" />
-            <label class="label" for="birthdate">Birthdate</label>
-            <input id="birthdate" class="input" type="date" />
-            <label class="label" for="gender">Gender</label>
-            <select id="gender" class="input">
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            <label class="label" for="profile-picture">Profile Picture</label>
-            <input id="profile-picture" class="input" type="file" accept="image/*" />
+          <div class="create-container hidden">
+            <div id="signup-fields" class="signup-fields">
+            <div class="field"><label class="label" for="first-name">First Name</label><input id="first-name" class="input" type="text" autocomplete="given-name" /></div>
+            <div class="field"><label class="label" for="middle-name">Middle Name</label><input id="middle-name" class="input" type="text" /></div>
+            <div class="field"><label class="label" for="last-name">Last Name</label><input id="last-name" class="input" type="text" autocomplete="family-name" /></div>
+            <div class="field"><label class="label" for="birthdate">Birthdate</label><input id="birthdate" class="input" type="date" /></div>
+            <div class="field"><label class="label" for="gender">Gender</label><select id="gender" class="input"><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
+            <div class="field"><label class="label" for="profile-picture">Profile Picture</label><input id="profile-picture" class="input" type="file" accept="image/*" /></div>
+            </div>
+            <div id="confirm-password-wrap" class="hidden">
+              <label class="label" for="confirm-password">Confirm Password</label>
+              <input id="confirm-password" class="input" type="password" autocomplete="new-password" />
+            </div>
           </div>
 
           <label class="label" for="email">Email</label>
           <input id="email" class="input" type="email" required autocomplete="email" />
           <label class="label" for="password">Password</label>
           <input id="password" class="input" type="password" required autocomplete="current-password" />
-          <div id="confirm-password-wrap" class="hidden">
-            <label class="label" for="confirm-password">Confirm Password</label>
-            <input id="confirm-password" class="input" type="password" autocomplete="new-password" />
-          </div>
           <button class="btn" id="submit-btn" type="submit">Sign In</button>
         </form>
         <div class="row" style="justify-content:flex-end;align-items:center">

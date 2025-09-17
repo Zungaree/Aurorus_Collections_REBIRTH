@@ -19,6 +19,7 @@ const genderEl = qs('#gender');
 const profileEl = qs('#profile-picture');
 const signupFields = qs('#signup-fields');
 const confirmWrap = qs('#confirm-password-wrap');
+const createContainer = qs('.create-container');
 const confirmPassEl = qs('#confirm-password');
 
 let isSignup = false;
@@ -34,6 +35,8 @@ const setMode = (signup) => {
   toggleBtn.textContent = signup? 'I already have an account' : 'Create an account';
   signupFields?.classList.toggle('hidden', !signup);
   confirmWrap?.classList.toggle('hidden', !signup);
+  createContainer?.classList.toggle('hidden', !signup);
+  document.body.classList.toggle('auth-signup', signup);
   passEl.setAttribute('autocomplete', signup? 'new-password':'current-password');
 };
 
