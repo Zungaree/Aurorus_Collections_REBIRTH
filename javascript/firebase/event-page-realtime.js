@@ -238,12 +238,12 @@ const renderMatchHistoryPanel = async (matchesRoot) => {
       return `
         <div class=\"match-group\">
           <div class=\"match-header\"><div class=\"title\">${rk}</div><div>${statusBadge}</div></div>
-          <div class=\"match-card\">
+          <div class=\"match-card vertical\">
             <div class=\"player-row ${aWinner?'winner':''}\">
               <div class=\"player-meta\"><span class=\"avatar ${aInfo.avatar?'':'avatar-fallback'}\">${aInfo.avatar?`<img src=\"${toImageSrc(aInfo.avatar)}\" alt=\"${a}\">`:(a||'?').slice(0,1)}</span><span class=\"player-name\">${a}</span>${aWinner?`<span class=\"badge badge-winner\">Winner</span>`:''}</div>
               <div class=\"player-score\">${scoreA!=null?scoreA:''}</div>
             </div>
-            <div class=\"vs-divider\"><span class=\"vs-pill\">VS</span></div>
+            <div class=\"vs-divider-line\"><span class=\"vs-pill\">VS</span></div>
             <div class=\"player-row ${bWinner?'winner':''}\">
               <div class=\"player-meta\"><span class=\"avatar ${bInfo.avatar?'':'avatar-fallback'}\">${bInfo.avatar?`<img src=\"${toImageSrc(bInfo.avatar)}\" alt=\"${b}\">`:(b||'?').slice(0,1)}</span><span class=\"player-name\">${b}</span>${bWinner?`<span class=\"badge badge-winner\">Winner</span>`:''}</div>
               <div class=\"player-score\">${scoreB!=null?scoreB:''}</div>
@@ -254,7 +254,7 @@ const renderMatchHistoryPanel = async (matchesRoot) => {
     }));
     const body = cards.join('');
     const title = titleForIndexFromEnd(index);
-    return `<div class="round"><div class="section-title">${title}</div>${body}</div>`;
+    return `<div class="round"><div class="section-title" style="text-align:center">${title}</div>${body}</div>`;
   }));
   container.innerHTML = sections.join('');
 };
@@ -266,7 +266,7 @@ const render = async (ev, matchesRoot) => {
   const disabled = !(status==='open' || status==='active');
   let html = `
     <section class="banner">
-      <div class="banner-media"></div>
+      <div class="banner-media" style="background-image:url('${toImageSrc(ev.banner||ev.image)}')"></div>
       <div class="banner-content">
         <div class="accent-chip">${(ev.status||'').toString()}</div>
         <h1>${ev.eventName||''}</h1>
