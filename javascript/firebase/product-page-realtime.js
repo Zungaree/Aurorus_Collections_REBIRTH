@@ -18,13 +18,16 @@ const render = (p) => {
   const maxQty = inStock ? Math.max(1, Number(p.stock||1)) : 9999;
   detCol.innerHTML = `
     <div>
-      <div class="row" style="align-items:center;justify-content:space-between"><span class="badge ${inStock?'badge-success':'badge-warning'}">${inStock?'In Stock':'Pre-order'}</span>${inStock?`<span class="muted">Stock: ${p.stock}</span>`:''}</div>
+      <div class="row" style="align-items:center;justify-content:space-between">
+        <span class="badge ${inStock?'badge-success':'badge-warning'}">${inStock?'In Stock':'Pre-order'}</span>
+        ${inStock?`<span class="badge">Stock: ${p.stock}</span>`:''}
+      </div>
       <p class="price" style="margin:10px 0">${formatPrice(p.price||0)}</p>
       <div class="controls">
         <label class="label" for="qty">Quantity</label>
         <input id="qty" class="input" type="number" min="1" value="1" ${inStock?'max="'+maxQty+'"':''} />
       </div>
-      <div class="row" style="margin-top:12px">
+      <div class="row" style="margin-top:12px;gap:10px">
         <button id="add" class="btn">Add to Cart</button>
         <button id="buy" class="btn btn-outline">Buy Now</button>
       </div>

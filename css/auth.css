@@ -1,5 +1,20 @@
 @import url('./global.css');
 
+/* Auth pages - light Aurorus background */
+.auth-page{min-height:100vh;background:
+  radial-gradient(1200px 600px at 20% -10%, rgba(42,148,179,.28), transparent),
+  radial-gradient(900px 500px at 80% 10%, rgba(84,86,170,.22), transparent),
+  var(--aurorus-bg);
+  background-attachment: fixed, fixed, fixed;
+}
+
+/* Center card already uses .filters-card from global; tweak max width on small screens */
+@media (max-width: 560px){
+  .filters-card{margin:12px}
+}
+
+@import url('./global.css');
+
 /* Auth page overrides */
 html,body{
   background:#ffffff !important;

@@ -4,32 +4,15 @@
 .banner{margin:12px 24px;border-radius:16px}
 
 .filters-card{margin-top:8px}
-.filters-card .controls{display:grid;grid-template-columns:repeat(12,1fr);gap:12px 12px;align-items:center}
-.filters-card .controls .input, .filters-card .controls select{min-height:40px}
+.filters-card .controls{display:grid;grid-template-columns:1fr;gap:12px;align-items:center}
+.filters-card .controls > *{grid-column:1/-1}
+.filters-card .controls .input, .filters-card .controls select{min-height:48px}
 /* Match index search bar visual for events search */
-#event-search{width:100%;padding-left:40px;background:no-repeat 12px center/18px 18px url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2218%22 height=%2218%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%235bc0ff%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Ccircle cx=%2211%22 cy=%2211%22 r=%228%22/%3E%3Cline x1=%2221%22 y1=%2221%22 x2=%2216.65%22 y2=%2216.65%22/%3E%3C/svg%3E')}
-#event-search:focus{border-color:rgba(91,192,255,.5)}
-/* Desktop column plan */
-#event-search{grid-column:span 6}
-#event-game{grid-column:span 3}
-#event-type{grid-column:span 3}
-#event-date{grid-column:span 2}
-#event-city{grid-column:span 2}
-#event-sort{grid-column:span 2}
-.filters-card .controls label.chip:has(#event-available){grid-column:span 2}
-/* Keep search visually wider if space allows */
-@media (min-width: 1200px){ #event-search{grid-column:span 7} #event-game{grid-column:span 3} }
-/* Tablet */
-@media (max-width: 1024px){
-  #event-search{grid-column:span 12}
-  #event-game,#event-type,#event-date,#event-city{grid-column:span 6}
-  #event-sort,.filters-card .controls label.chip:has(#event-available){grid-column:span 6}
-}
-/* Mobile */
-@media (max-width: 640px){
-  .filters-card .controls{grid-template-columns:1fr}
-  .filters-card .controls > *{grid-column:1}
-}
+#event-search{width:100%;padding-left:40px;background:no-repeat 12px center/18px 18px url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2218%22 height=%2218%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%232A94B3%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Ccircle cx=%2211%22 cy=%2211%22 r=%228%22/%3E%3Cline x1=%2221%22 y1=%2221%22 x2=%2216.65%22 y2=%2216.65%22/%3E%3C/svg%3E')}
+#event-search:focus{border-color:rgba(42,148,179,.5)}
+/* Stack all controls full width and style the availability chip as a pill */
+#event-search,#event-game,#event-type,#event-date,#event-city,#event-sort{grid-column:1/-1}
+.filters-card .controls label.chip:has(#event-available){grid-column:1/-1;display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;border-radius:999px;background:#ffffff;border:1px solid var(--aurorus-border);color:var(--aurorus-text-muted)}
 
 /* Events grid */
 #events-grid{grid-template-columns:repeat(3,1fr)}

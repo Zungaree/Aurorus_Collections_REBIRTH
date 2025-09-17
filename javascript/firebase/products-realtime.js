@@ -26,14 +26,13 @@ const render = (products) => {
       </a>
       <div class="card-body">
         <h3 class="card-title">${p.productName||''}</h3>
-        <p class="muted">${p.description||''}</p>
         <div class="card-meta">
           <span class="price">${formatPrice(p.price||0)}</span>
           <span class="badge ${inStock?'badge-success':'badge-danger'}">Stock: ${p.stock||0}</span>
         </div>
         <div class="card-actions">
           <button class="btn btn-sm" data-add="${p.id}">Add to Cart</button>
-          <a class="btn btn-sm btn-outline" href="product.html?id=${encodeURIComponent(p.id)}">View</a>
+          <a class="btn btn-sm btn-outline" href="product.html?id=${encodeURIComponent(p.id)}">Details</a>
         </div>
       </div>`;
     grid.appendChild(article);

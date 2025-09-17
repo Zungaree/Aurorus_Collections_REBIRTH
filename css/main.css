@@ -16,12 +16,17 @@
 .product-card-media{aspect-ratio:4/3;background:#0e1626 url('../assets/Aurorus_Logo.png') center/60% no-repeat}
 .product-price{display:flex;align-items:center;gap:8px;font-weight:800}
 .price{color:var(--aurorus-accent)}
-.badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--aurorus-border);color:var(--aurorus-text-muted);font-size:.75rem}
-.badge.badge-pre{border-color:rgba(255,226,122,.5);color:var(--aurorus-accent);background:rgba(255,226,122,.08)}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid var(--aurorus-border);color:var(--aurorus-text-muted);font-size:.78rem;background:#fff}
+.badge.badge-pre{border-color:rgba(255,226,122,.5);color:var(--aurorus-accent);background:rgba(255,226,122,.1)}
+.badge-success{border-color:rgba(46,204,113,.5);color:#1b5e38;background:rgba(46,204,113,.12)}
+.badge-danger{border-color:rgba(255,107,107,.6);color:#7a1e1e;background:rgba(255,107,107,.12)}
 
 /* Buy box on product page */
-.buy-box{position:sticky;top:94px;align-self:flex-start;background:var(--aurorus-elev);border:1px solid var(--aurorus-border);border-radius:16px;padding:16px;box-shadow:var(--shadow-color)}
+.buy-box{position:sticky;top:94px;align-self:flex-start;background:#ffffff;border:1px solid var(--aurorus-border);border-radius:16px;padding:16px;box-shadow:var(--shadow-color)}
 .buy-box .actions{display:flex;gap:10px;margin-top:10px}
+.buy-box .badge{padding:4px 10px}
+.buy-box .price{font-size:1.4rem}
+.buy-box .row{gap:12px}
 
 /* Banner common spacing override */
 .banner{margin-top:8px}
