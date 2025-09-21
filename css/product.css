@@ -2,30 +2,237 @@
 
 /* Product Page — focused UI polish */
 
-/* Media/Gallery column */
-.product-media{background:linear-gradient(180deg,rgba(255,255,255,1),rgba(255,255,255,.96));border:1px solid var(--aurorus-border);border-radius:16px;padding:14px;box-shadow:var(--shadow-color)}
-.product-media .media-card{position:relative;border-radius:12px;overflow:hidden;background:#0e1626}
-.product-media .media{aspect-ratio:4/3;border-radius:12px;background:#0e1626 url('../assets/Aurorus_Banner.png') center/cover no-repeat}
-.product-media .caption{display:flex;align-items:center;justify-content:space-between;margin-top:10px;color:var(--aurorus-text-muted)}
+/* ========================================
+   LEFT CONTAINER - PRODUCT MEDIA
+   ======================================== */
+.product-media{
+  background:linear-gradient(180deg,rgba(255,255,255,1),rgba(255,255,255,.98));
+  border:1px solid var(--aurorus-border);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 12px 32px rgba(16,32,56,.15);
+  transition:all 0.3s ease;
+  position:relative;
+  overflow:hidden;
+}
 
-/* Buy box refinements */
-.buy-box{min-width:300px}
-.buy-box .price-row{display:flex;align-items:center;gap:10px;margin:6px 0 2px}
-.buy-box .price{font-size:1.6rem}
-.buy-box .stock-chip{margin-left:auto}
-.buy-box .qty-row{display:flex;align-items:center;gap:10px;margin-top:10px}
-.buy-box .qty-row .input{max-width:100px;text-align:center}
-.buy-box .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+
+.product-media:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(16,32,56,.2);
+}
+
+.product-media .media-card{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  background:#0e1626;
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+  transition:all 0.3s ease;
+}
+
+.product-media .media-card:hover{
+  transform:scale(1.02);
+  box-shadow:0 12px 32px rgba(0,0,0,.25);
+}
+
+.product-media .media{
+  aspect-ratio:4/3;
+  border-radius:16px;
+  background:#0e1626 url('../assets/Aurorus_Banner.png') center/cover no-repeat;
+  transition:all 0.3s ease;
+}
+
+.product-media .media:hover{
+  transform:scale(1.05);
+}
+
+.product-media .caption{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:16px;
+  color:var(--aurorus-text-muted);
+  font-weight:500;
+  padding:8px 0;
+}
+
+/* ========================================
+   RIGHT CONTAINER - BUY BOX
+   ======================================== */
+.buy-box{
+  min-width:240px;
+  background:linear-gradient(180deg,rgba(255,255,255,1),rgba(255,255,255,.98));
+  border:1px solid var(--aurorus-border);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 12px 32px rgba(16,32,56,.15);
+  transition:all 0.3s ease;
+  position:relative;
+  overflow:hidden;
+  align-self:flex-start;
+}
+
+
+.buy-box:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(16,32,56,.2);
+}
+
+.buy-box .price-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:12px 0 8px;
+  padding:16px 20px;
+  background:linear-gradient(135deg,rgba(42,148,179,.12),rgba(84,86,170,.08));
+  border-radius:16px;
+  border:1px solid rgba(42,148,179,.2);
+  position:relative;
+  overflow:hidden;
+}
+
+.buy-box .price-row::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--aurorus-primary),var(--aurorus-accent));
+}
+
+.buy-box .price{
+  font-size:2.2rem;
+  font-weight:900;
+  color:var(--aurorus-primary);
+  text-shadow:0 2px 4px rgba(42,148,179,.15);
+  letter-spacing:-0.5px;
+}
+
+.buy-box .stock-chip{
+  margin-left:auto;
+  background:linear-gradient(135deg,rgba(46,204,113,.15),rgba(46,204,113,.08));
+  color:var(--success);
+  border:1px solid rgba(46,204,113,.4);
+  padding:8px 16px;
+  border-radius:25px;
+  font-weight:700;
+  font-size:0.85rem;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  box-shadow:0 2px 8px rgba(46,204,113,.2);
+}
+
+.buy-box .qty-row{
+  display:flex;
+  align-items:center;
+  margin-top:20px;
+  padding:12px 0;
+  background:rgba(42,148,179,.03);
+  border-radius:12px;
+  padding:12px 16px;
+}
+
+.buy-box .qty-row label{
+  font-weight:600;
+  color:var(--aurorus-text);
+  margin-right:8px;
+}
+
+.buy-box .qty-row .input{
+  margin-left:4px;
+  max-width:100px;
+  text-align:center;
+  border:2px solid var(--aurorus-border);
+  border-radius:10px;
+  font-weight:700;
+  font-size:1.1rem;
+  transition:all 0.2s ease;
+  background:rgba(255,255,255,.9);
+}
+
+.buy-box .qty-row .input:focus{
+  border-color:var(--aurorus-primary);
+  box-shadow:0 0 0 4px rgba(42,148,179,.15);
+  background:#ffffff;
+  transform:scale(1.05);
+}
+
+.buy-box .actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:24px;
+}
+
+.buy-box .btn{
+  font-weight:800;
+  padding:14px 20px;
+  border-radius:14px;
+  box-shadow:0 6px 16px rgba(42,148,179,.3);
+  transition:all 0.3s ease;
+  font-size:1rem;
+  letter-spacing:0.3px;
+  position:relative;
+  overflow:hidden;
+}
+
+.buy-box .btn::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transition:left 0.5s ease;
+}
+
+.buy-box .btn:hover::before{
+  left:100%;
+}
+
+.buy-box .btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(42,148,179,.4);
+}
+
+.buy-box .btn:active{
+  transform:translateY(-1px);
+}
 
 /* Subtle separators */
 .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(214,224,239,.9),transparent);margin:10px 0}
 
 /* Breadcrumb tweak (tighten spacing on this page) */
-.breadcrumb{margin:2px 0 12px}
+.breadcrumb{margin:2px 0 12px;font-size:1.1rem;font-weight:600}
+.breadcrumb a{color:var(--aurorus-primary);text-decoration:none;padding:4px 8px;border-radius:6px;transition:background-color 0.2s ease}
+.breadcrumb a:hover{background:rgba(42,148,179,.1);color:var(--aurorus-primary-600)}
+
+/* Position breadcrumb lower in container */
+.container .breadcrumb{margin-top:16px}
+
+/* Header adjustments for product page */
+.site-header .navbar{padding:2px 18px}
+
+/* Move container higher */
+.container{padding-top:0px}
+
+/* Remove background gradients at bottom */
+body{background:var(--aurorus-bg) !important}
+
+/* Row layout alignment */
+.row{
+  display:flex;
+  align-items:flex-start;
+  gap:24px;
+}
 
 /* Responsive layout */
 @media (max-width: 960px){
   .buy-box{position:static}
+  .row{flex-direction:column}
 }
 
 
