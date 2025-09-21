@@ -7,8 +7,8 @@
 .site-header .navbar{padding:14px 24px}
 .site-header .categories{padding-bottom:16px}
 
-/* Generic grid for product listings */
-.grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(4,1fr)}
+/* Generic grid for product listings - match events sizing */
+.grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(3,1fr)}
 .grid#featured-grid .card,.grid#catalog-grid .card{transition:transform .12s ease,box-shadow .2s ease}
 .grid#featured-grid .card:hover,.grid#catalog-grid .card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(18,32,56,.55)}
 
@@ -35,16 +35,13 @@
 .row#pagination{justify-content:center;gap:8px}
 .row#pagination .btn{padding:8px 12px}
 
-/* Responsive */
+/* Responsive - match events breakpoints */
 @media (max-width: 1100px){
-  .grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(3,1fr)}
-}
-@media (max-width: 780px){
   .grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(2,1fr)}
-  .buy-box{position:static}
 }
-@media (max-width: 520px){
+@media (max-width: 680px){
   .grid#featured-grid,.grid#catalog-grid{grid-template-columns:1fr}
+  .buy-box{position:static}
 }
 
 
