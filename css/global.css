@@ -20,9 +20,9 @@ a:hover{color:var(--aurorus-primary-600)}
 /* Header */
 .site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.75) 60%,rgba(255,255,255,0));backdrop-filter:blur(10px);border-bottom:1px solid var(--aurorus-border)}
 .site-header.with-shadow{background:rgba(255,255,255,.96);border-bottom:1px solid rgba(216,226,241,.9)}
-.site-header.with-shadow .navbar{padding:8px 24px}
-.site-header.with-shadow .brand{font-size:1.4rem}
-.site-header.with-shadow .brand::before{filter:none}
+.site-header.with-shadow .navbar{padding:12px 24px}
+.site-header.with-shadow .brand{font-size:1.6rem}
+.site-header.with-shadow .brand::before{filter:drop-shadow(0 0 6px rgba(42,148,179,.25))}
 .site-header.with-shadow .strip-preorder{display:none}
 .navbar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px}
 .brand{font-weight:800;letter-spacing:.4px;color:var(--aurorus-text);font-size:1.6rem;display:inline-flex;align-items:center}

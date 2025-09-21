@@ -10,7 +10,7 @@
 /* Generic grid for product listings - match events sizing */
 .grid#featured-grid,.grid#catalog-grid{grid-template-columns:repeat(3,1fr)}
 .grid#featured-grid .card,.grid#catalog-grid .card{transition:transform .12s ease,box-shadow .2s ease}
-.grid#featured-grid .card:hover,.grid#catalog-grid .card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(18,32,56,.55)}
+.grid#featured-grid .card:hover,.grid#catalog-grid .card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(18,32,56,.55), 0 0 20px rgba(91,192,255,.4), 0 0 40px rgba(91,192,255,.2)}
 
 /* Product card */
 .product-card-media{aspect-ratio:4/3;background:#0e1626 url('../assets/Aurorus_Logo.png') center/60% no-repeat}
