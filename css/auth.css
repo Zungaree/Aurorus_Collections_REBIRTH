@@ -17,7 +17,10 @@
 
 /* Auth page overrides */
 html,body{
-  background:#ffffff !important;
+  background:radial-gradient(1200px 600px at 20% -10%, rgba(42,148,179,.12), transparent),
+  radial-gradient(900px 500px at 80% 10%, rgba(84,86,170,.12), transparent),
+  var(--aurorus-bg) !important;
+  background-attachment: fixed, fixed, fixed;
   color:#0b1220;
 }
 
