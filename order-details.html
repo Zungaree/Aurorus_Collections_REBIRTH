@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Details - Aurorus</title>
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/order-details.css" />
   </head>
   <body>
     <header class="site-header">
@@ -22,14 +24,24 @@
       </nav>
     </header>
 
-    <main class="container">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="orders.html">My Orders</a>
+        <span>/</span>
+        <span class="current" aria-current="page">Order Details</span>
+      </nav>
+    </div>
+
+    <main class="container order-details-page">
       <div class="page-header">
         <h1>Order Details</h1>
         <p>View your order information and status</p>
       </div>
 
       <div class="row">
-        <section class="grow">
+        <section class="grow" aria-label="Order Information">
           <div class="card">
             <div class="card-header">
               <h2>Order Information</h2>
@@ -46,7 +58,7 @@
                 </div>
                 <div class="info-row">
                   <span class="label">Status:</span>
-                  <span class="value status" id="order-status">-</span>
+                  <span class="value status-chip" id="order-status">-</span>
                 </div>
                 <div class="info-row">
                   <span class="label">Payment:</span>
@@ -86,7 +98,7 @@
           </div>
         </section>
 
-        <aside class="grow">
+        <aside class="grow sidebar" aria-label="Actions">
           <div class="card">
             <div class="card-header">
               <h2>Actions</h2>

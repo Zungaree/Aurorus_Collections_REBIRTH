@@ -1,0 +1,32 @@
+@import url('./global.css');
+
+/* Product Page — focused UI polish */
+
+/* Media/Gallery column */
+.product-media{background:linear-gradient(180deg,rgba(255,255,255,1),rgba(255,255,255,.96));border:1px solid var(--aurorus-border);border-radius:16px;padding:14px;box-shadow:var(--shadow-color)}
+.product-media .media-card{position:relative;border-radius:12px;overflow:hidden;background:#0e1626}
+.product-media .media{aspect-ratio:4/3;border-radius:12px;background:#0e1626 url('../assets/Aurorus_Banner.png') center/cover no-repeat}
+.product-media .caption{display:flex;align-items:center;justify-content:space-between;margin-top:10px;color:var(--aurorus-text-muted)}
+
+/* Buy box refinements */
+.buy-box{min-width:300px}
+.buy-box .price-row{display:flex;align-items:center;gap:10px;margin:6px 0 2px}
+.buy-box .price{font-size:1.6rem}
+.buy-box .stock-chip{margin-left:auto}
+.buy-box .qty-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.buy-box .qty-row .input{max-width:100px;text-align:center}
+.buy-box .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+
+/* Subtle separators */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(214,224,239,.9),transparent);margin:10px 0}
+
+/* Breadcrumb tweak (tighten spacing on this page) */
+.breadcrumb{margin:2px 0 12px}
+
+/* Responsive layout */
+@media (max-width: 960px){
+  .buy-box{position:static}
+}
+
+
+

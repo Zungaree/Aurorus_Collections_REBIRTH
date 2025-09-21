@@ -1,0 +1,40 @@
+@import url('./global.css');
+
+/* Order Details page polish */
+
+.order-details-page .page-header{margin-bottom:8px}
+.order-details-page .page-header h1{margin:0 0 4px}
+.order-details-page .page-header p{margin:0;color:var(--aurorus-text-muted)}
+
+/* Info grid */
+.order-info{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-bottom:12px}
+.order-info .info-row{grid-column:span 6;display:flex;gap:8px}
+.order-info .label{min-width:120px;color:var(--aurorus-text-muted)}
+
+/* Status chip */
+.status-chip{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid var(--aurorus-border);background:rgba(46,204,113,.1);color:#1b5e38;font-weight:700}
+
+/* Items */
+.order-items h3{margin:10px 0}
+#order-items-list{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+#order-items-list .item{grid-column:span 12;display:flex;gap:12px;border:1px solid var(--aurorus-border);border-radius:12px;overflow:hidden;background:#fff}
+#order-items-list .item .thumb{width:120px;flex:0 0 120px;background:#0e1626}
+#order-items-list .item .content{padding:10px;display:flex;flex-direction:column;gap:4px}
+
+/* Totals */
+.order-totals{margin-top:12px;border-top:1px dashed var(--aurorus-border);padding-top:10px}
+.order-totals .total-row{display:flex;justify-content:space-between;margin:6px 0}
+.order-totals .total-row.total span:last-child{font-weight:800;color:var(--aurorus-accent);font-size:1.2rem}
+
+/* Sidebar spacing */
+.sidebar .card{position:sticky;top:94px}
+.action-buttons{display:flex;flex-direction:column;gap:10px}
+
+/* Responsive */
+@media (max-width: 900px){
+  .order-info .info-row{grid-column:span 12}
+  .sidebar .card{position:static}
+}
+
+
+
