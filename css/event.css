@@ -5,7 +5,7 @@
 /* Cleaner hero/banner */
 .banner{position:relative;margin:16px 0 20px 0;border-radius:16px;overflow:hidden;border:1px solid var(--aurorus-border);background:#0e1626;box-shadow:0 10px 28px rgba(16,32,56,.18)}
 /* Thin aurorus accent line */
-.banner::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#2a94b3, #5bc0ff, #9be7ff);opacity:.9}
+.banner::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;opacity:.9}
 .banner-media{position:relative;isolation:isolate;height:clamp(240px,34vw,420px);background:#0e1626 center/cover no-repeat}
 /* Bottom-only gradient; leaves sides bright */
 .banner-media::before{content:"";position:absolute;left:0;right:0;bottom:0;top:35%;background:linear-gradient(180deg,rgba(14,22,38,0) 0%,rgba(14,22,38,.22) 48%,rgba(14,22,38,.55) 80%,rgba(14,22,38,.9) 100%);z-index:0}
@@ -24,7 +24,7 @@
 .event-meta .dot::before{content:"•";opacity:.75;margin:0 6px}
 
 /* Compact pill for status */
-.accent-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,rgba(42,148,179,.25),rgba(91,192,255,.25));backdrop-filter:blur(6px);border:1px solid rgba(91,192,255,.5);font-weight:800;letter-spacing:.2px;text-transform:lowercase;box-shadow:0 6px 16px rgba(42,148,179,.35)}
+.accent-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:white;backdrop-filter:blur(6px);border:1px solid rgba(91,192,255,.5);font-weight:800;letter-spacing:.2px;text-transform:lowercase;box-shadow:0 6px 16px rgba(42,148,179,.35)}
 
 /* CTA row */
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px;padding:12px 12px;border-radius:12px;background:transparent}

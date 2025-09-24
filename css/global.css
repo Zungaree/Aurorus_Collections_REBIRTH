@@ -39,7 +39,7 @@ a:hover{color:var(--aurorus-primary-600)}
 .nav-links a{color:var(--aurorus-text);padding:8px 12px;border-radius:8px}
 .nav-links a[aria-current="page"],.nav-links a:hover{background:rgba(91,192,255,.12);color:var(--aurorus-primary)}
 .cart-link{position:relative;display:inline-flex;align-items:center;gap:6px}
-.cart-badge{display:inline-block;min-width:18px;padding:1px 6px;border-radius:10px;background:var(--aurorus-accent);color:#1b1b1b;font-weight:700;font-size:.75rem;vertical-align:top;margin-left:6px}
+.cart-badge{display:inline-block;min-width:18px;padding:1px 6px;border-radius:10px;background:var(--aurorus-accent);color:#fffafa;font-weight:700;font-size:.75rem;vertical-align:top;margin-left:6px}
 
 /* Hide category links */
 .categories{display:none}
@@ -74,7 +74,7 @@ select{color:var(--aurorus-text)}
 /* Banner/Hero */
 .banner{position:relative;border-radius:16px;margin:16px 24px;background:linear-gradient(135deg,rgba(42,148,179,.16),rgba(35,86,155,.12));border:1px solid var(--aurorus-border);overflow:hidden}
 .banner-media{height:260px;background-size:cover;background-position:center;filter:saturate(1.1) contrast(1.05)}
-.banner-content{position:absolute;inset:auto 0 0 0;padding:18px 24px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.9))}
+.banner-content{position:absolute;inset:auto 0 0 0;padding:18px 24px;}
 .accent-chip{display:inline-block;background:rgba(84,86,170,.12);color:var(--aurorus-accent);border:1px solid rgba(84,86,170,.35);padding:4px 10px;border-radius:999px;font-weight:700}
 
 /* Toasts */
