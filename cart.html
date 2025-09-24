@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart - Aurorus</title>
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/cart.css" />
   </head>
-  <body>
+  <body class="cart-page">
     <header class="site-header">
       <nav class="navbar" aria-label="Primary">
         <a class="brand" href="index.html">Aurorus</a>
@@ -31,20 +32,24 @@
           <span class="muted" style="margin-left:12px">Subtotal:</span> <strong id="selected-subtotal">₱0.00</strong>
         </div>
       </div>
-      <table class="table" aria-label="Cart items">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="cart-body"></tbody>
-      </table>
-      <div class="row" style="justify-content:flex-end;margin-top:16px">
+      <div class="cart-container">
+        <div class="cart-scroll">
+          <table class="table" aria-label="Cart items">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row cart-actions" style="justify-content:flex-end;margin-top:16px">
         <a class="btn" id="checkout-btn" href="order-review.html">Proceed to Checkout</a>
       </div>
     </main>

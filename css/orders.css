@@ -1,5 +1,7 @@
 @import url('./global.css');
 
+.orders-page{height:100vh;overflow:hidden}
+
 /* My Orders page */
 .page-header{margin:12px 24px 0;padding:12px 16px;border-radius:14px 14px 0 0;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.92));border:1px solid var(--aurorus-border);border-bottom:0}
 .page-header h1{margin:0}
@@ -9,9 +11,10 @@
 .orders-filters .filter-group{display:flex;flex-direction:column;gap:6px;min-width:220px}
 .orders-filters label{color:var(--aurorus-text-muted);font-weight:600}
 
-.orders-container{display:grid;grid-template-columns:1fr;gap:14px;padding:0 24px}
+.orders-container{display:grid;grid-template-columns:1fr;gap:14px;margin:0 24px 16px;padding:12px 12px 16px;max-height:calc(100dvh - 300px);overflow:auto;overflow-x:hidden;border:1px solid var(--aurorus-border);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,1),rgba(255,255,255,.96));box-shadow:var(--shadow-color);scroll-padding-bottom:24px;box-sizing:border-box;overscroll-behavior:contain;scrollbar-gutter:stable both-edges;-webkit-overflow-scrolling:touch;min-height:0}
 
 .order-card{border:1px solid var(--aurorus-border);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,1),rgba(255,255,255,.96));box-shadow:var(--shadow-color);overflow:hidden;transition:box-shadow .2s ease,border-color .2s ease,transform .08s ease}
+.order-card{scroll-margin-bottom:16px}
 .order-card:hover{transform:translateY(-1px);border-color:rgba(42,148,179,.45);box-shadow:0 10px 26px rgba(42,148,179,.15)}
 
 .order-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--aurorus-border);background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.85))}
@@ -46,6 +49,16 @@
   .orders-filters .filter-group{min-width:unset}
   .order-content{grid-template-columns:1fr;justify-items:start}
   .order-actions{justify-self:start}
+  .orders-container{max-height:calc(100dvh - 360px)}
+}
+
+/* Subtle, modern scrollbars for supported browsers */
+.orders-container::-webkit-scrollbar{width:10px}
+.orders-container::-webkit-scrollbar-track{background:transparent;border-radius:10px}
+.orders-container::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border:2px solid transparent;border-radius:10px;background-clip:padding-box}
+.orders-container:hover::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border:2px solid transparent}
+@supports (scrollbar-color: auto){
+  .orders-container{scrollbar-color:rgba(0,0,0,.22)_transparent;scrollbar-width:thin}
 }
 
 

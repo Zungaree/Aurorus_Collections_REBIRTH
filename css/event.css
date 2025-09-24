@@ -1,0 +1,53 @@
+@import url('./global.css');
+
+/* Event page specific styles (separated from events.css) */
+
+/* Cleaner hero/banner */
+.banner{position:relative;margin:16px 0 20px 0;border-radius:16px;overflow:hidden;border:1px solid var(--aurorus-border);background:#0e1626;box-shadow:0 10px 28px rgba(16,32,56,.18)}
+/* Thin aurorus accent line */
+.banner::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#2a94b3, #5bc0ff, #9be7ff);opacity:.9}
+.banner-media{position:relative;isolation:isolate;height:clamp(240px,34vw,420px);background:#0e1626 center/cover no-repeat}
+/* Bottom-only gradient; leaves sides bright */
+.banner-media::before{content:"";position:absolute;left:0;right:0;bottom:0;top:35%;background:linear-gradient(180deg,rgba(14,22,38,0) 0%,rgba(14,22,38,.22) 48%,rgba(14,22,38,.55) 80%,rgba(14,22,38,.9) 100%);z-index:0}
+.banner-media::after{content:"";position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));z-index:0}
+
+.banner-content{position:absolute;inset:auto 0 0 0;display:flex;flex-direction:column;gap:12px;padding:22px 24px;z-index:1;color:#fff;max-width:1100px;margin:0 auto}
+/* Glass panel behind text for clarity */
+.banner-content::before{content:"";position:absolute;left:12px;right:12px;bottom:12px;top:auto;height:calc(100% - 24px);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.05));backdrop-filter:blur(8px);border:1px solid rgba(91,192,255,.35);border-radius:14px;box-shadow:0 10px 32px rgba(42,148,179,.28);z-index:-1}
+.banner-content h1{margin:0;font-size:2.4rem;line-height:1.06;letter-spacing:.2px;font-weight:900;text-shadow:0 3px 14px rgba(0,0,0,.5);
+  background:linear-gradient(180deg,#eaf9ff 0%,#dff6ff 60%,#bfeeff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.banner-content h1::after{content:"";display:block;width:72px;height:4px;border-radius:4px;margin-top:8px;background:linear-gradient(90deg,#2a94b3,#5bc0ff)}
+.banner-content p{margin:0;color:rgba(255,255,255,.96);text-shadow:0 1px 8px rgba(0,0,0,.38)}
+/* Meta line layout */
+.event-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:rgba(255,255,255,.9)}
+.event-meta .dot::before{content:"•";opacity:.75;margin:0 6px}
+
+/* Compact pill for status */
+.accent-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,rgba(42,148,179,.25),rgba(91,192,255,.25));backdrop-filter:blur(6px);border:1px solid rgba(91,192,255,.5);font-weight:800;letter-spacing:.2px;text-transform:lowercase;box-shadow:0 6px 16px rgba(42,148,179,.35)}
+
+/* CTA row */
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px;padding:12px 12px;border-radius:12px;background:transparent}
+.hero-cta .btn{min-height:46px;padding:10px 20px;font-weight:800;border-radius:10px}
+/* Primary CTA */
+.banner .btn:not(.btn-outline){background:linear-gradient(135deg,#2a94b3 0%,#5bc0ff 100%);border:none;color:#0e1626;font-weight:900;box-shadow:0 12px 26px rgba(43,148,179,.45), 0 0 0 1px rgba(155,231,255,.35) inset}
+.banner .btn:not(.btn-outline):hover{filter:saturate(1.05);transform:translateY(-1px)}
+.banner .btn:not(.btn-outline):focus{outline:2px solid rgba(91,192,255,.6);outline-offset:2px}
+/* Secondary CTAs */
+.banner .btn.btn-outline{background:rgba(255,255,255,.08);color:#eaf9ff;border:1px solid rgba(91,192,255,.45);box-shadow:0 8px 18px rgba(0,0,0,.2)}
+.banner .btn.btn-outline:hover{background:rgba(255,255,255,.16)}
+.banner .btn{transform:translateY(0);transition:transform .15s ease, box-shadow .2s ease, filter .2s ease}
+
+/* Responsive tweaks */
+@media (max-width: 900px){
+  .banner-media{height:42vw;min-height:220px}
+  .banner-content h1{font-size:1.7rem}
+}
+@media (max-width: 600px){
+  .banner{margin:12px 0 16px 0;border-radius:14px}
+  .banner-content{padding:16px}
+  .banner-content h1{font-size:1.4rem}
+}
+
+
+

@@ -8,6 +8,8 @@ const pastChampionsGrid = document.querySelector('#past-champions');
 
 const peso = (n) => new Intl.NumberFormat(undefined,{style:'currency',currency:'PHP'}).format(Number(n||0));
 
+// (reverted) Keep simple time handling based on eventTime HH:MM
+
 const normalizeWinners = (winners) => {
   if (!winners || typeof winners !== 'object') return {};
   const sample = Object.values(winners)[0];
@@ -22,7 +24,35 @@ const normalizeWinners = (winners) => {
   return winners;
 };
 
-const render = (events) => {
+// Fetch tournamentTime from DB per event with a simple cache
+const tournamentTimeCache = new Map();
+const getTournamentTime = async (eventId) => {
+  if (!eventId) return '';
+  if (tournamentTimeCache.has(eventId)) return tournamentTimeCache.get(eventId);
+  try{
+    const snap = await get(child(ref(db), `TBL_EVENTS/${eventId}/tournamentTime`));
+    const val = snap.exists()? (snap.val()||'') : '';
+    tournamentTimeCache.set(eventId, val);
+    return val;
+  }catch{
+    return '';
+  }
+};
+
+const formatTime12h = (raw) => {
+  if (!raw && raw !== 0) return '';
+  const src = String(raw).trim();
+  const m = src.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
+  if (!m) return src;
+  let hour = Number(m[1]);
+  const minute = Number(m[2] ?? '0');
+  const mer = (m[3]||'').toLowerCase();
+  if (mer==='am') hour = hour % 12; else if (mer==='pm') hour = (hour % 12) + 12;
+  const d = new Date(); d.setHours(hour, minute, 0, 0);
+  return d.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
+};
+
+const render = async (events) => {
   if (!grid) return;
   grid.innerHTML = '';
   const items = Object.entries(events||{}).map(([id, e]) => ({ id, ...e }));
@@ -32,7 +62,12 @@ const render = (events) => {
     empty.textContent = 'No events found.';
     grid.appendChild(empty);
   }
-  items.forEach(ev => {
+  // enrich with tournamentTime
+  const enriched = await Promise.all(items.map(async (ev)=>({ ...ev, tournamentTime: (ev.tournamentTime || await getTournamentTime(ev.id)) })));
+  enriched.forEach(ev => {
+    const dateText = ev.eventDate ? new Date(ev.eventDate).toLocaleDateString(undefined, { year:'numeric', month:'long', day:'2-digit' }) : '';
+    const timeRaw = ev.tournamentTime || ev.eventTime || '';
+    const timeText = timeRaw ? formatTime12h(timeRaw) : '';
     const canRegister = String(ev.status||'').toLowerCase()==='open' || String(ev.status||'').toLowerCase()==='active';
     const status = String(ev.status||'').toLowerCase();
     const statusClass = status==='active' ? 'status-active'
@@ -48,7 +83,7 @@ const render = (events) => {
       <div class="card-body">
         <span class="badge ${statusClass} status-ribbon">${(ev.status||'').toString()}</span>
         <h3 class="card-title">${ev.eventName||''}</h3>
-        <div class="card-meta"><span>${ev.eventDate||''} ${ev.eventTime||''}</span><span>${ev.location||''}</span></div>
+        <div class="card-meta"><span>${dateText}</span>${timeText?`<span>${timeText}</span>`:''}<span>${ev.location||''}</span></div>
         <div class="card-actions">
           <a class="btn btn-sm" href="event.html?id=${encodeURIComponent(ev.id)}">${status==='completed'?'View Results':'Details'}</a>
           ${canRegister?`<button class="btn btn-sm" data-register="${ev.id}">Register</button>`:''}
@@ -56,13 +91,13 @@ const render = (events) => {
       </div>`;
     grid.appendChild(article);
   });
-  if (summary) summary.textContent = items.length? `Showing 1–${items.length} of ${items.length}` : 'No events found';
+  if (summary) summary.textContent = enriched.length? `Showing 1–${enriched.length} of ${enriched.length}` : 'No events found';
 
   grid.addEventListener('click', (e)=>{
     const btn = e.target.closest('[data-register]');
     if(!btn || btn.disabled) return;
     const id = btn.getAttribute('data-register');
-    const ev = items.find(x=> String(x.id)===String(id));
+    const ev = enriched.find(x=> String(x.id)===String(id));
     if(!ev) return;
     const content = document.createElement('div');
     content.innerHTML = `<p>Event registration is available only in the AURORUS mobile app.</p><p>Deep link:</p><p><code>aurorus://events/${encodeURIComponent(ev.id)}</code></p>`;

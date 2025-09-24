@@ -263,19 +263,82 @@ const render = async (ev, matchesRoot) => {
   const root = qs('#event-container');
   if(!ev){ root.textContent = 'Event not found'; return; }
   const status = String(ev.status||'').toLowerCase();
-  const disabled = !(status==='open' || status==='active');
+  // Friendly date/time formatting
+  const parseEventDateTime = (dateStr, timeStr) => {
+    if (!dateStr && !timeStr) return null;
+    if (dateStr && /T/.test(String(dateStr))) {
+      const d = new Date(dateStr);
+      return isNaN(d) ? null : d;
+    }
+    if (dateStr && timeStr) {
+      const d = new Date(`${dateStr} ${timeStr}`);
+      return isNaN(d) ? null : d;
+    }
+    if (dateStr) {
+      const d = new Date(dateStr);
+      return isNaN(d) ? null : d;
+    }
+    return null;
+  };
+  const to12h = (d) => {
+    try{
+      let h = d.getHours();
+      const m = d.getMinutes();
+      const ampm = h>=12 ? 'PM' : 'AM';
+      h = h % 12; if (h === 0) h = 12;
+      const mm = String(m).padStart(2,'0');
+      return `${h}:${mm} ${ampm}`;
+    }catch{ return ''; }
+  };
+  const formatTimeSoft = (timeLike) => {
+    if (!timeLike) return '';
+    const s = String(timeLike).trim();
+    // If it already contains AM/PM, normalize spacing and casing
+    const ampmMatch = s.match(/^(\d{1,2})(?::(\d{2}))?\s*([AaPp][Mm])$/);
+    if (ampmMatch) {
+      let hrs = Number(ampmMatch[1]);
+      const mins = ampmMatch[2] ? ampmMatch[2] : '00';
+      const ampm = ampmMatch[3].toUpperCase();
+      if (hrs === 0) hrs = 12;
+      if (hrs > 12) hrs = hrs % 12;
+      return `${hrs}:${mins} ${ampm}`;
+    }
+    // 24h like 15:41
+    const h24 = s.match(/^(\d{1,2})(?::(\d{2}))$/);
+    if (h24) {
+      let hrs = Number(h24[1]);
+      const mins = h24[2] || '00';
+      const ampm = hrs>=12 ? 'PM' : 'AM';
+      hrs = hrs % 12; if (hrs === 0) hrs = 12;
+      return `${String(hrs)}:${mins} ${ampm}`;
+    }
+    // Fallback: try Date parsing with today's date
+    const d = new Date(`1970-01-01T${s}`);
+    if (!isNaN(d)) return to12h(d);
+    return s; // show as-is if unrecognized
+  };
+  const rawTime = ev?.tournamentTime || ev?.eventTime || ev?.time || '';
+  const dt = parseEventDateTime(ev?.eventDate || ev?.date, rawTime);
+  const dateLabel = dt ? dt.toLocaleDateString(undefined, { year:'numeric', month:'long', day:'numeric' }) : (ev?.eventDate || ev?.date || '');
+  const timeLabel = rawTime ? formatTimeSoft(rawTime) : (dt ? to12h(dt) : '');
+  const locationLabel = ev?.location || ev?.city || ev?.venue || '';
+  const showRegister = (status === 'open' || status === 'active');
   let html = `
     <section class="banner">
       <div class="banner-media" style="background-image:url('${toImageSrc(ev.banner||ev.image)}')"></div>
       <div class="banner-content">
         <div class="accent-chip">${(ev.status||'').toString()}</div>
         <h1>${ev.eventName||''}</h1>
-        <p>${ev.eventDate||''} ${ev.eventTime||''} • ${ev.location||''}</p>
+        <div class="event-meta">
+          <span class="date">${dateLabel}</span>
+          ${timeLabel?'<span class="dot"></span><span class="time">'+timeLabel+'</span>':''}
+          ${locationLabel?'<span class="dot"></span><span class="location">'+locationLabel+'</span>':''}
+        </div>
         <div class="hero-cta">
           <a class="btn btn-outline" href="events.html">Back to Events</a>
           <a class="btn btn-outline" href="#results">View Results</a>
           <a class="btn btn-outline" href="#rules">Tournament Rules</a>
-          <button id="register" class="btn" ${disabled?'disabled title="Registration closed"':''}>Register</button>
+          ${showRegister?'<button id="register" class="btn">Register</button>':''}
         </div>
       </div>
     </section>
@@ -283,10 +346,26 @@ const render = async (ev, matchesRoot) => {
       <div class="event-layout">
         <div>
           <div class="stat-cards">
-            <div class="stat-card"><span class="icon">👥</span><div><div class="value" id="stat-participants">—</div><div class="label">Participants</div></div></div>
-            <div class="stat-card"><span class="icon">🕹️</span><div><div class="value" id="stat-rounds">—</div><div class="label">Rounds</div></div></div>
-            <div class="stat-card"><span class="icon">💰</span><div><div class="value">${ev.prizePool?`₱${Number(ev.prizePool).toLocaleString()}`:'—'}</div><div class="label">Prize Pool</div></div></div>
-            <div class="stat-card"><span class="icon">⏱</span><div><div class="value" id="stat-duration">—</div><div class="label">Duration</div></div></div>
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12c1.933 0 3.5-1.567 3.5-3.5S13.933 5 12 5s-3.5 1.567-3.5 3.5S10.067 12 12 12Z" stroke="#2A94B3" stroke-width="1.8"/>
+                  <path d="M5.5 13.5c2.05-1.45 4.95-1.45 7 0M16.5 10.5c1.38 0 2.5-1.12 2.5-2.5S17.88 5.5 16.5 5.5" stroke="#5BC0FF" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M14.5 14c1.5-.95 3.6-.95 5.1 0" stroke="#2A94B3" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <div class="metric"><div class="value" id="stat-participants">—</div><div class="label">Participants</div></div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="6" width="6" height="5" rx="1.5" stroke="#2A94B3" stroke-width="1.8"/>
+                  <rect x="15" y="13" width="6" height="5" rx="1.5" stroke="#5BC0FF" stroke-width="1.8"/>
+                  <path d="M9 9h6M15 9v4M9 13v-4" stroke="#2A94B3" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <div class="metric"><div class="value" id="stat-rounds">—</div><div class="label">Rounds</div></div>
+            </div>
           </div>
           <div id="podium-slot"></div>
           <div class="row">

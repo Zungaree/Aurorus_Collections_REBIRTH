@@ -16,6 +16,8 @@ let filteredOrders = [];
 
 const init = async () => {
   currentUser = await requireAuth();
+  adjustOrdersContainerHeight();
+  window.addEventListener('resize', adjustOrdersContainerHeight, { passive:true });
   setupEventListeners();
   loadOrders();
 };
@@ -75,6 +77,8 @@ const filterOrders = () => {
 
 const renderOrders = () => {
   if (!ordersContainer) return;
+  // Ensure container size is recalculated after content updates
+  adjustOrdersContainerHeight();
   
   if (filteredOrders.length === 0) {
     ordersContainer.innerHTML = `
@@ -147,6 +151,15 @@ const createOrderCard = (order) => {
   `;
   
   return card;
+};
+
+// Dynamically fit orders container to viewport without altering card design
+const adjustOrdersContainerHeight = () => {
+  if (!ordersContainer) return;
+  const rect = ordersContainer.getBoundingClientRect();
+  const bottomPadding = 16; // space below panel
+  const available = Math.max(220, Math.floor(window.innerHeight - rect.top - bottomPadding));
+  ordersContainer.style.maxHeight = available + 'px';
 };
 
 const getStatusDisplayName = (status) => {
