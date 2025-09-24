@@ -33,7 +33,11 @@
         </div>
       </section>
 
-      <section class="filters-card">
+      <section class="filters-card" aria-labelledby="filters-title">
+        <div class="filters-header">
+          <h2 id="filters-title">Filter & Sort</h2>
+          <button id="event-clear" class="btn btn-outline btn-sm" type="button">Clear</button>
+        </div>
         <div class="controls">
           <input id="event-search" class="input" type="search" placeholder="Search events..." aria-label="Search events" />
           <select id="event-game" multiple aria-label="Filter by game">

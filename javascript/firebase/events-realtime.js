@@ -35,7 +35,10 @@ const render = (events) => {
   items.forEach(ev => {
     const canRegister = String(ev.status||'').toLowerCase()==='open' || String(ev.status||'').toLowerCase()==='active';
     const status = String(ev.status||'').toLowerCase();
-    const statusClass = status==='active'?'status-active' : status==='completed'?'status-completed' : 'status-upcoming';
+    const statusClass = status==='active' ? 'status-active'
+      : status==='ongoing' ? 'status-ongoing'
+      : status==='completed' ? 'status-completed'
+      : 'status-upcoming';
     const article = document.createElement('article');
     article.className = 'card event-card';
     article.innerHTML = `
