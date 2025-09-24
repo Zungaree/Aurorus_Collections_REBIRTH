@@ -1,0 +1,97 @@
+@import url('./global.css');
+
+/* Payment Page - scoped enhancements mirroring Order Review UI */
+.payment-digital{background:#f6f9ff}
+.payment-page .card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+  border: 1px solid var(--aurorus-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(16, 32, 56, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.payment-page .card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(16, 32, 56, 0.12);
+}
+
+.payment-page .card-header{
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--aurorus-border);
+  background: linear-gradient(135deg, rgba(42,148,179,0.05), rgba(84,86,170,0.03));
+}
+
+.payment-page .card-header h2{
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--aurorus-text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-page .card-header h2::before{
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--aurorus-gradient);
+  border-radius: 2px;
+}
+
+.payment-page .card-body{padding:32px}
+
+/* Breadcrumb alignment */
+.payment-page .breadcrumb{margin: 2px 0 12px; font-size: 1.1rem; font-weight: 600}
+.payment-page .breadcrumb a{color: var(--aurorus-primary); text-decoration: none; padding: 4px 8px; border-radius: 6px; transition: background-color 0.2s ease}
+.payment-page .breadcrumb a:hover{background: rgba(42, 148, 179, 0.1); color: var(--aurorus-primary-600)}
+
+/* Instruction steps */
+.payment-instructions{display:flex;flex-direction:column;gap:14px}
+.instruction-step{display:flex;align-items:flex-start;gap:8px}
+.step-number{display:none}
+.step-content h3{margin:0 0 4px;font-size:1.05rem}
+.step-content p{margin:0;color:var(--aurorus-text-muted)}
+
+/* QR block */
+.qr-code-container{display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:center;margin:6px 0 8px}
+.qr-code{border:1px solid var(--aurorus-border);border-radius:12px;overflow:hidden;background:#fff;padding:10px;display:flex;align-items:center;justify-content:center}
+.qr-code img{max-width:100%;height:auto}
+.qr-info{display:flex;flex-direction:column;gap:6px}
+.qr-info p{margin:0}
+
+/* Screenshot preview */
+.screenshot-preview{display:flex;align-items:center;gap:10px;margin-top:10px}
+.screenshot-preview img{max-height:140px;border-radius:12px;border:1px solid var(--aurorus-border)}
+
+/* Tighten spacing between form groups so screenshot sits closer to reference ID */
+.payment-page .form-group{margin:4px 0}
+
+/* Make form labels match step headings */
+.payment-page .form-group .label{margin:0 0 6px;font-size:1.05rem;font-weight:800;color:var(--aurorus-text)}
+
+/* Summary card layout mimic */
+.payment-summary-card .card-body{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:10px}
+.payment-summary-card .card-body .order-summary{grid-column:1 / -1}
+.payment-summary-card .card-body .payment-info{grid-column:1 / -1}
+.payment-summary-card .card-body .payment-actions{grid-column:1 / -1}
+.payment-summary-card .order-summary{display:flex;flex-direction:column;gap:10px}
+.payment-summary-card .summary-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,148,179,.1)}
+.payment-summary-card .summary-row.total{margin-top:6px;padding-top:12px;border-top:2px solid #000000;border-bottom:0;font-weight:800;font-size:1.2rem}
+.payment-summary-card .summary-row.total span:last-child{color:var(--aurorus-primary);font-size:1.3rem}
+
+/* Buttons block spacing */
+.payment-actions{display:flex;gap:12px;justify-content:center}
+.payment-actions .btn{flex:0 0 auto;width:auto;display:flex;align-items:center;justify-content:center;text-align:center;font-family:inherit;font-size:1rem;font-weight:700;padding:10px 18px}
+
+/* Responsive */
+@media (max-width: 720px){
+  .payment-page .card-body{padding:24px}
+  .qr-code-container{grid-template-columns:1fr}
+  .payment-summary-card .card-body{grid-template-columns:1fr}
+  .payment-actions{display:grid;grid-template-columns:1fr}
+  .payment-actions .btn{width:100%}
+}
+
+

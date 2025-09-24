@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Digital Payment - Aurorus</title>
+    <title>Confirm Payment - Aurorus</title>
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/payment-digital.css" />
   </head>
-  <body>
+  <body class="payment-digital">
     <header class="site-header">
       <nav class="navbar" aria-label="Primary">
         <a class="brand" href="index.html">Aurorus</a>
@@ -22,18 +23,16 @@
       </nav>
     </header>
 
-    <main class="container">
-      <div class="breadcrumb">
-        <a href="cart.html">Cart</a>
-        <span>›</span>
-        <a href="order-review.html">Order Review</a>
-        <span>›</span>
-        <a href="payment-method.html">Payment Method</a>
-        <span>›</span>
-        <span>Digital Payment</span>
-        <span>›</span>
-        <span>Confirmation</span>
-      </div>
+	<main class="container payment-page">
+	  <nav class="breadcrumb" aria-label="Breadcrumb">
+		<a href="cart.html">Cart</a>
+		<span>/</span>
+		<a href="order-review.html">Order Review</a>
+		<span>/</span>
+		<a href="payment-method.html">Payment</a>
+		<span>/</span>
+		<span class="current" aria-current="page">Confirm Payment</span>
+	  </nav>
 
       <h1>Complete Your Payment</h1>
       
@@ -74,13 +73,11 @@
                 <div class="form-group">
                   <label class="label" for="reference-id">Reference ID / Transaction ID</label>
                   <input id="reference-id" class="input" placeholder="Enter your transaction reference ID" required />
-                  <small class="form-help">This is the reference number from your payment confirmation</small>
                 </div>
 
                 <div class="form-group">
                   <label class="label" for="payment-screenshot">Payment Screenshot</label>
                   <input id="payment-screenshot" type="file" accept="image/*" class="input" required />
-                  <small class="form-help">Upload a clear screenshot of your payment confirmation</small>
                 </div>
 
                 <div id="screenshot-preview" class="screenshot-preview hidden">
@@ -92,12 +89,18 @@
           </div>
         </section>
 
-        <aside class="grow">
-          <div class="card">
+		<aside class="grow">
+		  <div class="card payment-summary-card">
             <div class="card-header">
               <h2>Order Summary</h2>
             </div>
             <div class="card-body">
+              <div class="payment-info">
+                <h3>Payment Method</h3>
+                <p id="selected-payment-method">GCash</p>
+                <p class="muted">Digital Wallet Payment</p>
+              </div>
+			  
               <div class="order-summary">
                 <div class="summary-row">
                   <span>Subtotal</span>
@@ -113,19 +116,10 @@
                 </div>
               </div>
               
-              <div class="payment-info">
-                <h3>Payment Method</h3>
-                <p id="selected-payment-method">GCash</p>
-                <p class="muted">Digital Wallet Payment</p>
-              </div>
-              
-              <button class="btn btn-primary btn-block" id="submit-payment" disabled>
-                Submit Payment Proof
-              </button>
-              
-              <a href="order-review.html" class="btn btn-outline btn-block">
-                Back to Payment Method
-              </a>
+			  <div class="payment-actions">
+				<button class="btn btn-primary btn-block" id="submit-payment" disabled>Submit Payment Proof</button>
+				<a href="order-review.html" class="btn btn-outline btn-block">Back to Payment Method</a>
+			  </div>
             </div>
           </div>
         </aside>

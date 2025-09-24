@@ -213,8 +213,9 @@
 /* Position breadcrumb lower in container */
 .container .breadcrumb{margin-top:16px}
 
-/* Header adjustments for product page */
-.site-header .navbar{padding:2px 18px}
+/* Header adjustments for product page (match home page sizing; prevent jump on scroll) */
+.site-header .navbar{padding:14px 24px}
+.site-header.with-shadow .navbar{padding:14px 24px}
 
 /* Move container higher */
 .container{padding-top:0px}
