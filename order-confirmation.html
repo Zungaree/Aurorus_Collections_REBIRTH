@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Confirmation - Aurorus</title>
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/order-details.css" />
+     <style>
+       /* Organize and tighten spacing for What's Next section */
+       .next-steps{display:grid;gap:12px}
+       .next-steps .step{padding:12px 0;border-bottom:1px solid var(--aurorus-border)}
+       .next-steps .step:last-child{border-bottom:0}
+       .next-steps .step-content h3{margin:0 0 4px;line-height:1.25}
+       .next-steps .step-content p{margin:0;color:var(--aurorus-text-muted)}
+
+       /* Pull containers slightly higher on this page */
+       header + .container{padding-top:8px}
+       header + .container .breadcrumb{margin-top:0;margin-bottom:6px}
+       main.container.order-details-page{padding-top:2px}
+       /* Centered Need Help card */
+       .center-card{max-width:560px;margin:12px auto}
+       .center-card .help-info .contact-info{display:block;margin-top:6px}
+     </style>
   </head>
   <body>
     <header class="site-header">
@@ -22,19 +40,28 @@
       </nav>
     </header>
 
-    <main class="container">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="orders.html">My Orders</a>
+        <span>/</span>
+        <span class="current" aria-current="page">Order Confirmation</span>
+      </nav>
+    </div>
+
+    <main class="container order-details-page">
       <div class="order-confirmation">
         <div class="confirmation-header">
-          <div class="success-icon">✅</div>
           <h1>Order Confirmed!</h1>
           <p class="confirmation-message">Thank you for your order. We've received your payment and will process your order shortly.</p>
         </div>
 
         <div class="row">
-          <section class="grow">
+          <section class="grow" aria-label="Order Information">
             <div class="card">
               <div class="card-header">
-                <h2>Order Details</h2>
+                <h2>Order Information</h2>
               </div>
               <div class="card-body">
                 <div class="order-info">
@@ -48,7 +75,7 @@
                   </div>
                   <div class="info-row">
                     <span class="label">Status:</span>
-                    <span class="value status" id="order-status">Pending</span>
+                    <span class="value status-chip" id="order-status">Pending</span>
                   </div>
                   <div class="info-row">
                     <span class="label">Payment Method:</span>
@@ -78,6 +105,10 @@
               </div>
             </div>
 
+            
+          </section>
+
+          <aside class="grow sidebar" aria-label="Order Details Sidebar">
             <div class="card">
               <div class="card-header">
                 <h2>Shipping Information</h2>
@@ -86,9 +117,7 @@
                 <div id="shipping-info"></div>
               </div>
             </div>
-          </section>
 
-          <aside class="grow">
             <div class="card">
               <div class="card-header">
                 <h2>What's Next?</h2>
@@ -96,25 +125,22 @@
               <div class="card-body">
                 <div class="next-steps">
                   <div class="step">
-                    <div class="step-icon">📧</div>
                     <div class="step-content">
-                      <h3>Email Confirmation</h3>
-                      <p>You'll receive an email confirmation shortly with your order details.</p>
+                      <h3>Confirmation Sent</h3>
+                      <p>We've emailed your order summary. You can also view it under My Orders.</p>
                     </div>
                   </div>
                   
                   <div class="step">
-                    <div class="step-icon">⏳</div>
                     <div class="step-content">
-                      <h3>Order Processing</h3>
+                      <h3>Payment Review</h3>
                       <p id="processing-message">We're reviewing your payment and will update your order status soon.</p>
                     </div>
                   </div>
                   
                   <div class="step">
-                    <div class="step-icon">📦</div>
                     <div class="step-content">
-                      <h3>Fulfillment</h3>
+                      <h3>Fulfillment Prep</h3>
                       <p id="fulfillment-message">Once confirmed, we'll prepare your order for shipping or pickup.</p>
                     </div>
                   </div>
@@ -131,25 +157,29 @@
               </div>
             </div>
 
-            <div class="card">
-              <div class="card-header">
-                <h2>Need Help?</h2>
-              </div>
-              <div class="card-body">
-                <div class="help-info">
-                  <p>If you have any questions about your order, please contact us:</p>
-                  <div class="contact-info">
-                    <p><strong>Email:</strong> support@aurorus.com</p>
-                    <p><strong>Phone:</strong> +63 123 456 7890</p>
-                    <p><strong>Hours:</strong> Mon-Fri 9AM-6PM</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </aside>
         </div>
       </div>
     </main>
+
+    <!-- Centered Need Help card below the main content -->
+    <div class="container order-details-page">
+      <div class="card center-card">
+        <div class="card-header">
+          <h2>Need Help?</h2>
+        </div>
+        <div class="card-body">
+          <div class="help-info">
+            <p>If you have any questions about your order, please contact us:</p>
+            <div class="contact-info">
+              <p><strong>Email:</strong> support@aurorus.com</p>
+              <p><strong>Phone:</strong> +63 123 456 7890</p>
+              <p><strong>Hours:</strong> Mon-Fri 9AM-6PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="toast-container" class="toast-container"></div>
 

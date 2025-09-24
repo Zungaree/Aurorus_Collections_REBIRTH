@@ -92,9 +92,9 @@ const renderOrderDetails = () => {
     day: 'numeric'
   });
   
-  // Status with appropriate styling
+  // Status with appropriate styling (match order-details page)
   orderStatusEl.textContent = getStatusDisplayName(orderData.status);
-  orderStatusEl.className = `value status status-${orderData.status}`;
+  orderStatusEl.className = `value status-chip status-${orderData.status}`;
   
   // Payment method
   const paymentMethod = orderData.payment?.method || 'Unknown';
