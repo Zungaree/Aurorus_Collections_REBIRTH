@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Review - Aurorus</title>
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/order-review.css" />
   </head>
   <body>
     <header class="site-header">
@@ -22,14 +23,14 @@
       </nav>
     </header>
 
-    <main class="container">
-      <div class="breadcrumb">
+    <main class="container order-review-page">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="cart.html">Cart</a>
-        <span>›</span>
-        <span>Order Review</span>
-        <span>›</span>
+        <span>/</span>
+        <span class="current" aria-current="page">Order Review</span>
+        <span>/</span>
         <span>Payment</span>
-      </div>
+      </nav>
 
       <h1>Review Your Order</h1>
       
@@ -37,31 +38,28 @@
         <section class="grow">
           <div class="card">
             <div class="card-header">
-              <h2>Order Items</h2>
-            </div>
-            <div class="card-body">
-              <div id="order-items-list"></div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
               <h2>Shipping Information</h2>
             </div>
             <div class="card-body">
-              <div class="controls">
-                <label class="chip">
-                  <input type="radio" name="shipping" value="delivery" checked />
-                  <span>Delivery</span>
-                </label>
-                <label class="chip">
-                  <input type="radio" name="shipping" value="pickup" />
-                  <span>Store Pickup</span>
-                </label>
+
+              <div class="form-section">
+                <h3 class="section-title">Shipping Method</h3>
+                <p class="section-subtitle">Choose how you want to receive your order</p>
+                <div class="shipping-controls controls">
+                  <label class="chip">
+                    <input type="radio" name="shipping" value="delivery" checked />
+                    <span>Delivery</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="shipping" value="pickup" />
+                    <span>Store Pickup</span>
+                  </label>
+                </div>
               </div>
               
-              <div class="form-group" style="margin-top: 20px;">
-                <label class="label">Payment Method <span class="required">*</span></label>
+              <div class="form-section">
+                <h3 class="section-title">Payment Method</h3>
+                <p class="section-subtitle">Select a payment option. Cash and Credits are for pickup only.</p>
                 <div class="payment-methods">
                   <label class="payment-option">
                     <input type="radio" name="payment" value="cash" />
@@ -117,43 +115,63 @@
                 </div>
               </div>
               
-              <div id="address-form">
-                <div class="form-group">
-                  <label class="label" for="name">Full Name <span class="required">*</span></label>
-                  <input id="name" class="input" placeholder="Enter your full name" required />
-                </div>
-                <div class="form-group">
-                  <label class="label" for="address">Address <span class="required">*</span></label>
-                  <input id="address" class="input" placeholder="Enter your address" required />
-                </div>
-                <div class="form-group">
-                  <label class="label" for="city">City <span class="required">*</span></label>
-                  <input id="city" class="input" placeholder="Enter your city" required />
-                </div>
-                <div class="form-group">
-                  <label class="label" for="zip">ZIP Code <span class="required">*</span></label>
-                  <input id="zip" class="input" placeholder="Enter ZIP code" required />
+              <div class="form-section" id="address-section">
+                <h3 class="section-title">Delivery Address</h3>
+                <p class="section-subtitle">Provide your shipping details for delivery orders</p>
+                <div id="address-form">
+                  <div class="address-grid">
+                    <div class="form-group full">
+                      <label class="label" for="name">Full Name <span class="required">*</span></label>
+                      <input id="name" class="input" placeholder="Enter your full name" required />
+                    </div>
+                    <div class="form-group full">
+                      <label class="label" for="address">Address <span class="required">*</span></label>
+                      <input id="address" class="input" placeholder="Enter your address" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="label" for="city">City <span class="required">*</span></label>
+                      <input id="city" class="input" placeholder="Enter your city" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="label" for="zip">ZIP Code <span class="required">*</span></label>
+                      <input id="zip" class="input" placeholder="Enter ZIP code" required />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div id="pickup-info" class="hidden">
-                <div class="alert alert-info">
-                  <strong>Store Pickup Location:</strong><br>
-                  Aurorus Connect Store<br>
-                  123 Gaming Street, Manila, Philippines<br>
-                  <em>Please bring a valid ID for pickup</em>
-                </div>
-                <div class="form-group">
-                  <label class="label" for="pickup-name">Full Name <span class="required">*</span></label>
-                  <input id="pickup-name" class="input" placeholder="Enter your full name for pickup" required />
+              <div class="form-section" id="pickup-section">
+                <h3 class="section-title">Pickup Details</h3>
+                <p class="section-subtitle">Pickup at our store with a valid ID</p>
+                <div id="pickup-info" class="hidden">
+                  <div class="alert alert-info">
+                    <strong>Store Pickup Location:</strong><br>
+                    Aurorus Connect Store<br>
+                    123 Gaming Street, Manila, Philippines<br>
+                    <em>Please bring a valid ID for pickup</em>
+                  </div>
+                  <div class="form-group">
+                    <label class="label" for="pickup-name">Full Name <span class="required">*</span></label>
+                    <input id="pickup-name" class="input" placeholder="Enter your full name for pickup" required />
+                  </div>
                 </div>
               </div>
+
             </div>
           </div>
         </section>
 
         <aside class="grow">
           <div class="card">
+            <div class="card-header">
+              <h2>Order Items</h2>
+            </div>
+            <div class="card-body">
+              <div id="order-items-list"></div>
+            </div>
+          </div>
+
+          <div class="card order-summary-card">
             <div class="card-header">
               <h2>Order Summary</h2>
             </div>

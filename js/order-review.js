@@ -15,6 +15,10 @@ const addressForm = qs('#address-form');
 const pickupInfo = qs('#pickup-info');
 const paymentWarning = qs('#payment-warning');
 
+// Section containers for full show/hide
+const addressSection = qs('#address-section');
+const pickupSection = qs('#pickup-section');
+
 const nameEl = qs('#name');
 const addressEl = qs('#address');
 const cityEl = qs('#city');
@@ -66,6 +70,12 @@ const init = async () => {
       if (paymentWarning) {
         paymentWarning.classList.toggle('hidden', shippingType === 'pickup');
       }
+
+      // Set initial section visibility
+      if (addressForm) addressForm.classList.toggle('hidden', shippingType !== 'delivery');
+      if (pickupInfo) pickupInfo.classList.toggle('hidden', shippingType !== 'pickup');
+      if (addressSection) addressSection.classList.toggle('hidden', shippingType !== 'delivery');
+      if (pickupSection) pickupSection.classList.toggle('hidden', shippingType !== 'pickup');
     }
     
     const selectedPayment = qs('input[name="payment"]:checked');
@@ -123,8 +133,10 @@ const setupEventListeners = () => {
     radio.addEventListener('change', (e) => {
       shippingType = e.target.value;
       console.log('Shipping type changed to:', shippingType);
-      addressForm.classList.toggle('hidden', shippingType !== 'delivery');
-      pickupInfo.classList.toggle('hidden', shippingType !== 'pickup');
+      if (addressForm) addressForm.classList.toggle('hidden', shippingType !== 'delivery');
+      if (pickupInfo) pickupInfo.classList.toggle('hidden', shippingType !== 'pickup');
+      if (addressSection) addressSection.classList.toggle('hidden', shippingType !== 'delivery');
+      if (pickupSection) pickupSection.classList.toggle('hidden', shippingType !== 'pickup');
       
       // Show/hide payment warning
       if (paymentWarning) {

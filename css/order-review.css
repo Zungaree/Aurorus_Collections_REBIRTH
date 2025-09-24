@@ -1,0 +1,130 @@
+@import url('./global.css');
+
+/* Order Review page - Modern Design */
+
+/* Scope all enhancements to this page */
+.order-review-page .card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+  border: 1px solid var(--aurorus-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(16, 32, 56, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.order-review-page .card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(16, 32, 56, 0.12);
+}
+
+.order-review-page .card-header{
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--aurorus-border);
+  background: linear-gradient(135deg, rgba(42,148,179,0.05), rgba(84,86,170,0.03));
+}
+
+.order-review-page .card-header h2{
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--aurorus-text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-review-page .card-header h2::before{
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--aurorus-gradient);
+  border-radius: 2px;
+}
+
+.order-review-page .card-body{padding:32px}
+
+/* Breadcrumb - match Order Details */
+.order-review-page .breadcrumb{margin: 2px 0 12px; font-size: 1.1rem; font-weight: 600}
+.order-review-page .breadcrumb a{color: var(--aurorus-primary); text-decoration: none; padding: 4px 8px; border-radius: 6px; transition: background-color 0.2s ease}
+.order-review-page .breadcrumb a:hover{background: rgba(42, 148, 179, 0.1); color: var(--aurorus-primary-600)}
+
+/* Section segmentation inside Shipping Information */
+.form-section{margin: 8px 0 20px}
+.section-title{margin: 0 0 6px; font-size: 1.05rem; font-weight: 800}
+.section-subtitle{margin: 0 0 12px; color: var(--aurorus-text-muted); font-size: .9rem}
+
+/* Shipping method chips layout */
+.shipping-controls.controls{display:flex;gap:10px;flex-wrap:wrap}
+.shipping-controls .chip{padding:8px 12px}
+.shipping-controls .chip span{font-weight:800}
+
+/* Address form organized into grid */
+#address-form{margin-top:8px}
+.address-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px 10px}
+.address-grid .form-group{grid-column:span 6}
+.address-grid .form-group.full{grid-column:span 12}
+.order-review-page #address-form .form-group{margin:4px 0}
+.order-review-page #address-form .label{margin:4px 0 4px}
+
+/* Order Items list (reuse look from order details) */
+#order-items-list{display:flex;flex-direction:column;gap:16px}
+#order-items-list .order-item{display:flex;gap:16px;border:1px solid var(--aurorus-border);border-radius:16px;overflow:hidden;background:#fff;transition:all .3s ease;position:relative;padding:16px;align-items:center}
+#order-items-list .order-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,32,56,.1);border-color:rgba(42,148,179,.3)}
+#order-items-list .order-item .item-image{width:80px;height:80px;flex:0 0 80px;background:linear-gradient(135deg,#0e1626,#1a2332);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:8px}
+#order-items-list .order-item .item-image img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+#order-items-list .order-item .item-details{padding:0 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+#order-items-list .order-item .item-details h3{margin:0;font-size:1.1rem;font-weight:700;color:var(--aurorus-text)}
+#order-items-list .order-item .item-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#order-items-list .order-item .item-meta .price{font-size:1.2rem;font-weight:800;color:var(--aurorus-primary)}
+#order-items-list .order-item .item-meta .quantity{color:#000000;font-size:.9rem;font-weight:600}
+#order-items-list .order-item .item-total{font-size:1.2rem;font-weight:800;color:var(--aurorus-primary);text-align:right;min-width:100px}
+
+/* Payment methods: button-like options (hide emojis) */
+.payment-icon{display:none}
+.payment-methods{margin-top:8px}
+.payment-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;border-radius:12px;border:2px solid var(--aurorus-border);background:linear-gradient(180deg, #ffffff, #fbfdff)}
+.payment-card h3{margin:0;font-size:1rem;font-weight:800;color:var(--aurorus-text)}
+.payment-card p{display:none}
+.payment-note{display:none}
+.payment-option input:checked + .payment-card{border-color:rgba(42,148,179,.6);box-shadow:0 0 0 4px rgba(91,192,255,.15) inset;background:linear-gradient(180deg, rgba(42,148,179,.06), rgba(84,86,170,.04))}
+.payment-card:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,32,56,.08)}
+
+.payment-option.disabled .payment-card{opacity:.6;filter:saturate(.9);cursor:not-allowed}
+.payment-option.disabled input{pointer-events:none}
+
+/* Error state for required fields */
+.input.error{border-color: rgba(255,107,107,.7); box-shadow: 0 0 0 3px rgba(255,107,107,.12) inset}
+
+/* Order Summary block */
+.order-summary{display:flex;flex-direction:column;gap:10px}
+.order-summary .summary-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,148,179,.1)}
+.order-summary .summary-row.total{margin-top:6px;padding-top:12px;border-top:2px solid #000000;border-bottom:0;font-weight:800;font-size:1.2rem}
+.order-summary .summary-row.total span:last-child{color:var(--aurorus-primary);font-size:1.3rem}
+
+/* Order Summary actions: equal button sizes with spacing */
+.order-summary-card .card-body{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.order-summary-card .card-body .order-summary{grid-column:1 / -1}
+.order-summary-card .card-body .btn{width:100%;display:flex;align-items:center;justify-content:center;text-align:center;font-family:inherit;font-size:1rem;font-weight:700}
+
+/* Alerts spacing */
+#payment-warning{margin-top:12px}
+
+/* Controls grid spacing */
+.controls{margin-top:8px}
+
+/* Pickup info styling */
+#pickup-info .alert{margin-bottom:12px}
+
+/* Responsive adjustments */
+@media (max-width: 900px){
+  #order-items-list .order-item{flex-direction:column;align-items:stretch}
+  #order-items-list .order-item .item-image{width:100%;height:120px}
+  .address-grid{grid-template-columns:1fr}
+  .address-grid .form-group,.address-grid .form-group.full{grid-column:1}
+}
+
+@media (max-width: 720px){
+  .order-review-page .card-body{padding:24px}
+  .order-review-page .card-header{padding:20px 24px}
+  .order-summary-card .card-body{grid-template-columns:1fr}
+}
