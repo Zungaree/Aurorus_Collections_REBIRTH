@@ -22,13 +22,38 @@ export const openModal = (title, contentNode, actions=[]) => {
   const modal = createEl('div',{class:'modal',role:'dialog','aria-modal':'true'});
   const header = createEl('div',{class:'modal-header'});
   const h = createEl('h3'); h.textContent = title; header.appendChild(h);
-  const closeBtn = createEl('button',{class:'btn btn-outline', 'aria-label':'Close'}); closeBtn.textContent = 'Close'; closeBtn.addEventListener('click', closeModal);
+  
+  // Create close icon button
+  const closeBtn = createEl('button',{class:'modal-close', 'aria-label':'Close modal'});
+  closeBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+  closeBtn.addEventListener('click', closeModal);
   header.appendChild(closeBtn);
+  
   modal.appendChild(header);
-  modal.appendChild(contentNode);
-  const actionsEl = createEl('div',{class:'modal-actions'});
-  actions.forEach(a => { const b = createEl('a',{class:`btn ${a.variant||''}`, href:a.href||'#'}); b.textContent=a.label; if (a.onClick){ b.addEventListener('click', (e)=>{ e.preventDefault(); a.onClick();}); } actionsEl.appendChild(b); });
-  modal.appendChild(actionsEl);
+  
+  // Add content wrapper
+  const contentWrapper = createEl('div',{class:'modal-content'});
+  contentWrapper.appendChild(contentNode);
+  modal.appendChild(contentWrapper);
+  
+  // Only add actions if there are any
+  if (actions.length > 0) {
+    const actionsEl = createEl('div',{class:'modal-actions'});
+    actions.forEach(a => { 
+      const b = createEl('a',{class:`btn ${a.variant||''}`, href:a.href||'#'}); 
+      b.textContent=a.label; 
+      if (a.onClick){ 
+        b.addEventListener('click', (e)=>{ e.preventDefault(); a.onClick();}); 
+      } 
+      actionsEl.appendChild(b); 
+    });
+    modal.appendChild(actionsEl);
+  }
+  
   backdrop.appendChild(modal);
   document.body.appendChild(backdrop);
   const focusable = qsa('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])', modal);

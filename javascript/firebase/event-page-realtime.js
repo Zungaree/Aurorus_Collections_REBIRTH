@@ -393,11 +393,17 @@ const render = async (ev, matchesRoot) => {
   const reg2 = null;
   const onReg = ()=>{
     const content = document.createElement('div');
-    content.innerHTML = `<p>Event registration is available only in the AURORUS mobile app.</p><p><code>aurorus://events/${encodeURIComponent(id)}</code></p>`;
+    content.innerHTML = `
+      <div style="text-align: center;">
+        <p>Event registration is available only in the AURORUS mobile app.</p>
+        <p style="margin: 20px 0 12px 0; font-weight: 600; color: var(--aurorus-text);">Deep link:</p>
+        <div style="background: rgba(42,148,179,0.1); border: 1px solid rgba(42,148,179,0.2); border-radius: 8px; padding: 12px; margin: 0 auto; max-width: 300px;">
+          <code style="color: var(--aurorus-primary); font-size: 0.9rem; word-break: break-all;">aurorus://events/${encodeURIComponent(id)}</code>
+        </div>
+      </div>
+    `;
     openModal('Register in the App', content, [
-      { label:'Get the App (Android)', href:'https://play.google.com/store/apps/details?id=com.aurorus.app' },
-      { label:'Get the App (iOS)', href:'https://apps.apple.com/app/id0000000000' },
-      { label:'Cancel', href:'#', onClick:()=>{} }
+      { label:'Get the App (Android)', href:'https://play.google.com/store/apps/details?id=com.aurorus.app' }
     ]);
   };
   reg?.addEventListener('click', onReg);
