@@ -164,6 +164,15 @@ const adjustOrdersContainerHeight = () => {
 
 const getStatusDisplayName = (status) => {
   const statusMap = {
+    'PENDING_PAYMENT': 'Pending Payment',
+    'PAYMENT_SUBMITTED': 'Payment Submitted',
+    'PAYMENT_VERIFIED': 'Payment Verified',
+    'PROOF_DECLINED': 'Proof Declined',
+    'TO_SHIP': 'To Ship',
+    'READY_TO_PICKUP': 'Ready to Pickup',
+    'COMPLETED': 'Completed',
+    'CANCELLED': 'Cancelled',
+    // Legacy status support
     'pending_payment': 'Pending Payment',
     'payment_submitted': 'Payment Submitted',
     'payment_verified': 'Payment Verified',
@@ -180,21 +189,31 @@ const getStatusDisplayName = (status) => {
 
 const getActionButton = (order) => {
   switch (order.status) {
+    case 'PENDING_PAYMENT':
     case 'pending_payment':
       return '<span class="btn btn-outline btn-sm btn-disabled">Awaiting Payment</span>';
+    case 'PAYMENT_SUBMITTED':
     case 'payment_submitted':
       return '<span class="btn btn-outline btn-sm btn-disabled">Payment Under Review</span>';
+    case 'PAYMENT_VERIFIED':
     case 'payment_verified':
     case 'processing':
       return '<span class="btn btn-outline btn-sm btn-disabled">Processing</span>';
+    case 'PROOF_DECLINED':
+      return '<span class="btn btn-outline btn-sm btn-disabled">Payment Declined</span>';
+    case 'TO_SHIP':
+      return '<span class="btn btn-outline btn-sm btn-disabled">Preparing to Ship</span>';
+    case 'READY_TO_PICKUP':
     case 'ready_for_pickup':
       return '<a href="#" class="btn btn-primary btn-sm">Ready for Pickup</a>';
     case 'shipped':
       return '<span class="btn btn-outline btn-sm btn-disabled">In Transit</span>';
     case 'delivered':
       return '<span class="btn btn-outline btn-sm btn-disabled">Delivered</span>';
+    case 'COMPLETED':
     case 'completed':
       return '<a href="#" class="btn btn-outline btn-sm">Reorder</a>';
+    case 'CANCELLED':
     case 'cancelled':
       return '<span class="btn btn-outline btn-sm btn-disabled">Cancelled</span>';
     case 'refunded':

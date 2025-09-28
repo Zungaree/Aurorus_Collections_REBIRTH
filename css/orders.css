@@ -23,12 +23,22 @@
 .order-date{margin:2px 0 0;color:var(--aurorus-text-muted);font-size:.9rem}
 
 .order-status .status{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--aurorus-border);font-weight:700}
-.status.status-pending_payment{background:rgba(241,196,15,.1);border-color:rgba(241,196,15,.5)}
-.status.status-payment_submitted{background:rgba(167,181,255,.12);border-color:rgba(167,181,255,.5)}
-.status.status-payment_verified,.status.status-processing{background:rgba(42,148,179,.12);border-color:rgba(42,148,179,.5)}
-.status.status-ready_for_pickup{background:rgba(255,226,122,.15);border-color:rgba(255,226,122,.6);color:var(--aurorus-accent)}
-.status.status-shipped,.status.status-delivered,.status.status-completed{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.6)}
-.status.status-cancelled,.status.status-refunded{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.6)}
+/* Red badges - PENDING_PAYMENT, PROOF_DECLINED, CANCELLED */
+.status.status-PENDING_PAYMENT,.status.status-pending_payment{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.6);color:#dc3545}
+.status.status-PROOF_DECLINED{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.6);color:#dc3545}
+.status.status-CANCELLED,.status.status-cancelled{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.6);color:#dc3545}
+/* Green badges - PAYMENT_SUBMITTED, PAYMENT_VERIFIED, COMPLETED */
+.status.status-PAYMENT_SUBMITTED,.status.status-payment_submitted{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.6);color:#28a745}
+.status.status-PAYMENT_VERIFIED,.status.status-payment_verified{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.6);color:#28a745}
+.status.status-COMPLETED,.status.status-completed{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.6);color:#28a745}
+/* Blue badge - TO_SHIP */
+.status.status-TO_SHIP{background:rgba(42,148,179,.12);border-color:rgba(42,148,179,.6);color:#007bff}
+/* Purple badge - READY_TO_PICKUP */
+.status.status-READY_TO_PICKUP,.status.status-ready_for_pickup{background:rgba(108,117,125,.15);border-color:rgba(108,117,125,.6);color:#6f42c1}
+/* Legacy status support */
+.status.status-processing{background:rgba(42,148,179,.12);border-color:rgba(42,148,179,.5)}
+.status.status-shipped,.status.status-delivered{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.6)}
+.status.status-refunded{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.6)}
 
 .order-content{display:grid;grid-template-columns:2fr 1fr auto;gap:16px;padding:12px 14px;align-items:center}
 .order-items-preview h4{margin:0 0 4px}
