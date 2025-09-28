@@ -102,6 +102,49 @@ const renderWinners = async (winners) => {
     </article>`;
 };
 
+// New function to render standings from the new database structure
+const renderStandings = async (standings) => {
+  if (!standings || typeof standings !== 'object') return '';
+  
+  const standingsArray = Object.entries(standings)
+    .map(([playerId, score]) => ({ playerId, score: Number(score) || 0 }))
+    .sort((a, b) => b.score - a.score);
+  
+  if (standingsArray.length === 0) return '';
+  
+  const standingsHtml = await Promise.all(standingsArray.map(async (entry, index) => {
+    const user = await getUserById(entry.playerId);
+    const name = user?.name || user?.displayName || 'Unknown Player';
+    const avatar = user?.profilePicture || '';
+    const rank = index + 1;
+    const rankClass = rank === 1 ? 'rank-1' : rank <= 3 ? 'top-3' : '';
+    const rankLabel = rank === 1 ? 'Leader' : rank <= 3 ? 'Top 3' : '';
+    
+    return `
+      <div class="standings-item ${rankClass}">
+        <div class="standings-rank">#${rank}</div>
+        <div class="standings-player">
+          <div class="standings-avatar">
+            <img src="${avatar ? toImageSrc(avatar) : '/assets/default-avatar.png'}" alt="${name}" />
+          </div>
+          <div class="standings-info">
+            <h4>${name}</h4>
+            <p>${rankLabel}</p>
+          </div>
+        </div>
+        <div class="standings-score">${entry.score} points</div>
+      </div>`;
+  }));
+  
+  return `
+    <div class="standings-container">
+      <h3 class="standings-title">Current Standings</h3>
+      <div class="standings-list">
+        ${standingsHtml.join('')}
+      </div>
+    </div>`;
+};
+
 const determineWinnerName = async (match) => {
   const result = String(match?.result||'').toLowerCase();
   // Try to resolve player1 and player2 names using direct fields or user lookups
@@ -208,53 +251,106 @@ const renderMatchHistoryPanel = async (matchesRoot) => {
   const container = qs('#match-history');
   if (!container) return;
   if (!matchesRoot || typeof matchesRoot !== 'object') { container.innerHTML = '<div class="muted">No matches to show.</div>'; return; }
-  const keys = Object.keys(matchesRoot).filter(k=>/^Round\d+$/i.test(k)).sort((a,b)=>{
-    const na = Number(a.replace(/\D/g,''));
-    const nb = Number(b.replace(/\D/g,''));
-    return nb-na;
+  
+  // Handle new database structure with ROUND_1, ROUND_2, etc.
+  const keys = Object.keys(matchesRoot).filter(k=>/^ROUND_\d+$/i.test(k)).sort((a,b)=>{
+    const na = Number(a.replace(/ROUND_/i, ''));
+    const nb = Number(b.replace(/ROUND_/i, ''));
+    return nb-na; // Show latest rounds first
   });
+  
   if (keys.length===0) { container.innerHTML = '<div class="muted">No matches to show.</div>'; return; }
+  
   const titleForIndexFromEnd = (idxFromEnd) => {
-    if (idxFromEnd===0) return 'Finals';
-    if (idxFromEnd===1) return 'Semi-Finals';
-    if (idxFromEnd===2) return 'Quarter-Finals';
-    return `Round ${keys.length-idxFromEnd}`;
+    const totalRounds = keys.length;
+    const roundNumber = totalRounds - idxFromEnd;
+    
+    if (roundNumber === totalRounds) return 'Finals';
+    if (roundNumber === totalRounds - 1) return 'Semi-Finals';
+    if (roundNumber === totalRounds - 2) return 'Quarter-Finals';
+    if (roundNumber === totalRounds - 3) return 'Round of 16';
+    if (roundNumber === totalRounds - 4) return 'Round of 32';
+    return `Round ${roundNumber}`;
   };
+  
   const sections = await Promise.all(keys.map(async (rk, index)=>{
     const round = matchesRoot[rk];
     const arr = Array.isArray(round)? round : Object.values(round||{});
-    const cards = await Promise.all(arr.map(async m => {
-      const aInfo = await resolvePlayerInfo(m?.playerA || m?.player1 || m?.playerAId || m?.player1Id || m?.playerAUID || m?.playerAUserId);
-      const bInfo = await resolvePlayerInfo(m?.playerB || m?.player2 || m?.playerBId || m?.player2Id || m?.playerBUID || m?.playerBUserId);
-      const winnerName = await determineWinnerName(m);
-      const a = aInfo.name || 'Player A';
-      const b = bInfo.name || 'Player B';
-      const scoreA = (m?.scoreA ?? m?.score_a ?? null);
-      const scoreB = (m?.scoreB ?? m?.score_b ?? null);
-      const scoreRight = (typeof m?.score === 'string' || typeof m?.score === 'number') ? String(m.score) : '';
-      const statusBadge = winnerName && winnerName!=='Draw' ? '<span class="badge badge-completed">Completed</span>' : (m?.live? '<span class="badge badge-live">Live</span>' : '');
-      const aWinner = winnerName && winnerName!=='Draw' && winnerName===a;
-      const bWinner = winnerName && winnerName!=='Draw' && winnerName===b;
+    
+    // Group matches by round - all matches in the same round should be displayed together
+    const title = titleForIndexFromEnd(index);
+    const cards = await Promise.all(arr.map(async (m, matchIndex) => {
+      // Handle new player data structure with Player1, Player1Name, Player1Profile, etc.
+      const player1Id = m?.Player1;
+      const player2Id = m?.Player2;
+      const player1Name = m?.Player1Name || 'Player 1';
+      const player2Name = m?.Player2Name || 'Player 2';
+      const player1Profile = m?.Player1Profile || '';
+      const player2Profile = m?.Player2Profile || '';
+      const winnerId = m?.Winner;
+      const matchNumber = matchIndex + 1;
+      
+      // Check for bye matches
+      const isByeMatch = player1Name.toLowerCase().startsWith('bye') || player2Name.toLowerCase().startsWith('bye');
+      const byePlayer = player1Name.toLowerCase().startsWith('bye') ? player2Name : player1Name;
+      const byePlayerProfile = player1Name.toLowerCase().startsWith('bye') ? player2Profile : player1Profile;
+      
+      if (isByeMatch) {
+        return `
+          <div class="match-group bye-match">
+            <div class="match-header">
+              <div class="match-title">Match ${matchNumber}</div>
+              <div class="match-status completed">Free Win</div>
+            </div>
+            <div class="match-card">
+              <div class="bye-container">
+                <div class="bye-icon">🏆</div>
+                <div class="bye-text">
+                  <div class="bye-player">
+                    <div class="player-name">${byePlayer}</div>
+                  </div>
+                  <div class="bye-label">Advances with Free Win</div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }
+      
+      // Determine winner
+      const player1Winner = winnerId === player1Id;
+      const player2Winner = winnerId === player2Id;
+      
+      const statusBadge = winnerId ? '<span class="badge badge-completed">Completed</span>' : '<span class="badge badge-live">Live</span>';
+      
       return `
-        <div class=\"match-group\">
-          <div class=\"match-header\"><div class=\"title\">${rk}</div><div>${statusBadge}</div></div>
-          <div class=\"match-card vertical\">
-            <div class=\"player-row ${aWinner?'winner':''}\">
-              <div class=\"player-meta\"><span class=\"avatar ${aInfo.avatar?'':'avatar-fallback'}\">${aInfo.avatar?`<img src=\"${toImageSrc(aInfo.avatar)}\" alt=\"${a}\">`:(a||'?').slice(0,1)}</span><span class=\"player-name\">${a}</span>${aWinner?`<span class=\"badge badge-winner\">Winner</span>`:''}</div>
-              <div class=\"player-score\">${scoreA!=null?scoreA:''}</div>
+        <div class="match-group">
+          <div class="match-header">
+            <div class="match-title">Match ${matchNumber}</div>
+            <div class="match-status ${winnerId ? 'completed' : 'live'}">${winnerId ? 'Completed' : 'Live'}</div>
+          </div>
+          <div class="match-card">
+            <div class="player-row ${player1Winner?'winner':''}">
+              <div class="player-meta">
+                <div class="player-name">${player1Name}</div>
+                ${player1Winner?`<span class="badge badge-winner">Winner</span>`:''}
+              </div>
+              <div class="player-score"></div>
             </div>
-            <div class=\"vs-divider-line\"><span class=\"vs-pill\">VS</span></div>
-            <div class=\"player-row ${bWinner?'winner':''}\">
-              <div class=\"player-meta\"><span class=\"avatar ${bInfo.avatar?'':'avatar-fallback'}\">${bInfo.avatar?`<img src=\"${toImageSrc(bInfo.avatar)}\" alt=\"${b}\">`:(b||'?').slice(0,1)}</span><span class=\"player-name\">${b}</span>${bWinner?`<span class=\"badge badge-winner\">Winner</span>`:''}</div>
-              <div class=\"player-score\">${scoreB!=null?scoreB:''}</div>
+            <div class="vs-divider">
+              <span class="vs-pill">VS</span>
             </div>
-            ${(!scoreA && !scoreB && scoreRight)?`<div class=\"row\"><span class=\"badge\">${scoreRight}</span></div>`:''}
+            <div class="player-row ${player2Winner?'winner':''}">
+              <div class="player-meta">
+                <div class="player-name">${player2Name}</div>
+                ${player2Winner?`<span class="badge badge-winner">Winner</span>`:''}
+              </div>
+              <div class="player-score"></div>
+            </div>
           </div>
         </div>`;
     }));
     const body = cards.join('');
-    const title = titleForIndexFromEnd(index);
-    return `<div class="round"><div class="section-title" style="text-align:center">${title}</div>${body}</div>`;
+    return `<div class="round"><div class="section-title">${title}</div>${body}</div>`;
   }));
   container.innerHTML = sections.join('');
 };
@@ -262,6 +358,9 @@ const renderMatchHistoryPanel = async (matchesRoot) => {
 const render = async (ev, matchesRoot) => {
   const root = qs('#event-container');
   if(!ev){ root.textContent = 'Event not found'; return; }
+  
+  // Add event-page class for enhanced styling
+  root.classList.add('event-page');
   const status = String(ev.status||'').toLowerCase();
   // Friendly date/time formatting
   const parseEventDateTime = (dateStr, timeStr) => {
@@ -414,9 +513,19 @@ const render = async (ev, matchesRoot) => {
     let participants = 0;
     const p = ev?.participants;
     if (Array.isArray(p)) participants = p.length; else if (p && typeof p === 'object') participants = Object.keys(p).length; else if (typeof p === 'number') participants = Number(p)||0;
-    const roundCount = Object.keys(matchesRoot||{}).filter(k => /^Round\d+$/i.test(k)).length;
+    
+    // Handle new database structure with ROUND_1, ROUND_2, etc.
+    const roundCount = Object.keys(matchesRoot||{}).filter(k => /^ROUND_\d+$/i.test(k)).length;
     const timestamps = [];
-    Object.keys(matchesRoot||{}).forEach(k => { if (!/^Round\d+$/i.test(k)) return; const r = matchesRoot[k]; const ms = Array.isArray(r)? r : Object.values(r||{}); ms.forEach(m => { if (m?.updatedAt) timestamps.push(Number(m.updatedAt)); if (m?.timestamp) timestamps.push(Number(m.timestamp)); }); });
+    Object.keys(matchesRoot||{}).forEach(k => { 
+      if (!/^ROUND_\d+$/i.test(k)) return; 
+      const r = matchesRoot[k]; 
+      const ms = Array.isArray(r)? r : Object.values(r||{}); 
+      ms.forEach(m => { 
+        if (m?.updatedAt) timestamps.push(Number(m.updatedAt)); 
+        if (m?.timestamp) timestamps.push(Number(m.timestamp)); 
+      }); 
+    });
     const start = Number(ev?.startTimestamp || ev?.startTime || ev?.createdAt || 0);
     const end = Math.max(0, ...timestamps, Number(ev?.endTimestamp || 0));
     const duration = (start && end && end>start) ? humanizeDuration(end - start) : '—';
@@ -426,6 +535,26 @@ const render = async (ev, matchesRoot) => {
   } catch {}
 
   await renderMatchHistoryPanel(matchesRoot);
+  
+  // Render standings if available
+  if (matchesRoot?.STANDINGS) {
+    const standingsHtml = await renderStandings(matchesRoot.STANDINGS);
+    if (standingsHtml) {
+      const standingsContainer = qs('#standings-container');
+      if (standingsContainer) {
+        standingsContainer.innerHTML = standingsHtml;
+      } else {
+        // Create standings container if it doesn't exist
+        const matchHistory = qs('#match-history');
+        if (matchHistory && matchHistory.parentNode) {
+          const standingsDiv = document.createElement('div');
+          standingsDiv.id = 'standings-container';
+          standingsDiv.innerHTML = standingsHtml;
+          matchHistory.parentNode.insertBefore(standingsDiv, matchHistory);
+        }
+      }
+    }
+  }
   // If completed, hydrate winners + rounds with resolved names
   if (status === 'completed') {
     (async ()=>{
