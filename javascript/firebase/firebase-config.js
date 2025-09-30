@@ -27,8 +27,10 @@ export { onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, stora
 export const toImageSrc = (base64OrDataUrl) => {
   if (!base64OrDataUrl) return '';
   if (base64OrDataUrl.startsWith('data:image')) return base64OrDataUrl;
-  // Default to PNG if MIME type not provided
-  return `data:image/png;base64,${base64OrDataUrl}`;
+  // Heuristic: if base64 starts with '/9j', it's likely JPEG
+  const isJpeg = base64OrDataUrl.startsWith('/9j');
+  const mime = isJpeg ? 'image/jpeg' : 'image/png';
+  return `data:${mime};base64,${base64OrDataUrl}`;
 };
 
 export const formatPrice = (n) => new Intl.NumberFormat(undefined,{style:'currency',currency:'PHP',minimumFractionDigits:2}).format(Number(n||0));

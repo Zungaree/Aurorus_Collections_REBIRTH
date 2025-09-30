@@ -38,6 +38,21 @@ const setMode = (signup) => {
   createContainer?.classList.toggle('hidden', !signup);
   document.body.classList.toggle('auth-signup', signup);
   passEl.setAttribute('autocomplete', signup? 'new-password':'current-password');
+
+  // Move email/password below gender/profile on signup for visual order
+  try{
+    const credBlock = document.querySelector('#credentials');
+    const anchor = document.querySelector('#signup-credentials-anchor');
+    if (signup && credBlock && anchor && anchor.parentElement){
+      anchor.parentElement.insertBefore(credBlock, anchor.nextSibling);
+    } else if (!signup) {
+      // Move credentials back above create-container when switching to sign-in
+      const form = document.querySelector('#auth-form');
+      if (form && credBlock){
+        form.insertBefore(credBlock, document.querySelector('.create-container'));
+      }
+    }
+  } catch {}
 };
 
 setMode(false);
@@ -83,7 +98,6 @@ form.addEventListener('submit', async (e)=>{
       const gender = genderEl?.value.trim()||'';
       if(!first){ showToast('First name is required', 'error'); throw new Error('validation'); }
       if(!last){ showToast('Last name is required', 'error'); throw new Error('validation'); }
-      if(middle===''){ showToast('Middle name is required', 'error'); throw new Error('validation'); }
       if(!birth){ showToast('Birthdate is required', 'error'); throw new Error('validation'); }
       if(!gender || !(gender==='Male' || gender==='Female')){ showToast('Select gender: Male or Female', 'error'); throw new Error('validation'); }
       const email = emailEl.value.trim();
@@ -100,8 +114,10 @@ form.addEventListener('submit', async (e)=>{
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       await updateProfile(cred.user, { displayName: fullName });
       try { await sendEmailVerification(cred.user); } catch {}
-      // Prepare user record with base64 profile picture
-      const base64 = await readFileAsBase64(file);
+      // Prepare user record with compact base64 (no data URL prefix)
+      const dataUrl = await readFileAsBase64(file);
+      const commaIdx = dataUrl.indexOf(',');
+      const base64 = commaIdx>0 ? dataUrl.slice(commaIdx+1) : dataUrl;
       const uid = cred.user.uid;
       const userData = {
         name: fullName,
@@ -110,6 +126,7 @@ form.addEventListener('submit', async (e)=>{
         middleName: middle,
         birthdate: birth,
         gender,
+        // Store raw base64 only (Android app will add mime prefix)
         profilePicture: base64
       };
       await set(ref(db, `users/${uid}`), userData);

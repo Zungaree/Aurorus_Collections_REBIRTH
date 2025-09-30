@@ -10,7 +10,7 @@
   <body class="auth-page">
     <header class="site-header">
       <nav class="navbar" aria-label="Primary">
-        <a class="brand" href="index.html">Aurorus</a>
+        <a class="brand" href="index.html">Aurorus Collections Online</a>
         <ul class="nav-links">
           <li><a href="products.html">Products</a></li>
           <li><a href="events.html">Events</a></li>
@@ -24,25 +24,28 @@
         <h1 style="margin:0 0 8px" id="mode-title">Sign In</h1>
         <p class="muted" id="mode-sub">Welcome back. Use your email and password.</p>
         <form id="auth-form" class="section" style="margin-top:12px">
+         
+            <label class="label" for="email">Email</label>
+            <input id="email" class="input" type="email" required autocomplete="email" />
+            <label class="label" for="password">Password</label>
+            <input id="password" class="input" type="password" required autocomplete="current-password" />
+          
           <div class="create-container hidden">
-            <div id="signup-fields" class="signup-fields">
-            <div class="field"><label class="label" for="first-name">First Name</label><input id="first-name" class="input" type="text" autocomplete="given-name" /></div>
-            <div class="field"><label class="label" for="middle-name">Middle Name</label><input id="middle-name" class="input" type="text" /></div>
-            <div class="field"><label class="label" for="last-name">Last Name</label><input id="last-name" class="input" type="text" autocomplete="family-name" /></div>
-            <div class="field"><label class="label" for="birthdate">Birthdate</label><input id="birthdate" class="input" type="date" /></div>
-            <div class="field"><label class="label" for="gender">Gender</label><select id="gender" class="input"><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
-            <div class="field"><label class="label" for="profile-picture">Profile Picture</label><input id="profile-picture" class="input" type="file" accept="image/*" /></div>
-            </div>
             <div id="confirm-password-wrap" class="hidden">
               <label class="label" for="confirm-password">Confirm Password</label>
               <input id="confirm-password" class="input" type="password" autocomplete="new-password" />
             </div>
+            <div id="signup-fields" class="signup-fields" style="margin-top:12px">
+              <div class="field"><label class="label" for="first-name">First Name</label><input id="first-name" class="input" type="text" autocomplete="given-name" /></div>
+              <div class="field"><label class="label" for="middle-name">Middle Name (optional)</label><input id="middle-name" class="input" type="text" /></div>
+              <div class="field"><label class="label" for="last-name">Last Name</label><input id="last-name" class="input" type="text" autocomplete="family-name" /></div>
+              <div class="field"><label class="label" for="birthdate">Birthdate</label><input id="birthdate" class="input" type="date" /></div>
+              <div class="field"><label class="label" for="gender">Gender</label><select id="gender" class="input"><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
+              <div class="field"><label class="label" for="profile-picture">Profile Picture</label><input id="profile-picture" class="input" type="file" accept="image/*" /></div>
+              <!-- credentials target for signup: move below gender/profile -->
+              <div id="signup-credentials-anchor"></div>
+            </div>
           </div>
-
-          <label class="label" for="email">Email</label>
-          <input id="email" class="input" type="email" required autocomplete="email" />
-          <label class="label" for="password">Password</label>
-          <input id="password" class="input" type="password" required autocomplete="current-password" />
           <button class="btn" id="submit-btn" type="submit">Sign In</button>
         </form>
         <div class="row" style="justify-content:flex-end;align-items:center">
