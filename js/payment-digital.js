@@ -1,4 +1,4 @@
-import { formatPrice, qs, showToast, updateNavbarCartBadge, setupNavToggle } from './ui.js';
+import { formatPrice, qs, showToast, updateNavbarCartBadge, setupNavToggle, createEl, openModal } from './ui.js';
 import { readPaymentMethodData, clearPaymentMethodData, clearOrderReviewData, clearCheckoutSelection, clearSelectedFromCart, updateMultipleProductStock } from './storage.js';
 import { requireAuth } from '../javascript/firebase/auth.js';
 import { createOrder, updatePaymentInfo } from './order-utils.js';
@@ -67,12 +67,12 @@ const setupPaymentMethod = () => {
   if (method === 'gcash') {
     paymentMethodTitle.textContent = 'GCash Payment';
     walletName.textContent = 'GCash';
-    qrCodeImage.src = 'assets/gcash-qr.png';
+    qrCodeImage.src = 'assets/gcash-qr.jpg';
     qrCodeImage.alt = 'GCash QR Code';
   } else if (method === 'maya') {
     paymentMethodTitle.textContent = 'Maya Payment';
     walletName.textContent = 'Maya';
-    qrCodeImage.src = 'assets/maya-qr.png';
+    qrCodeImage.src = 'assets/maya-qr.jpg';
     qrCodeImage.alt = 'Maya QR Code';
   }
   
@@ -105,6 +105,24 @@ const setupEventListeners = () => {
   
   // Submit payment
   submitBtn.addEventListener('click', handleSubmitPayment);
+
+  // Click to expand QR code
+  const qrImg = qs('#qr-code-image');
+  if (qrImg) {
+    qrImg.style.cursor = 'zoom-in';
+    qrImg.addEventListener('click', () => {
+      const content = createEl('div');
+      content.innerHTML = `
+        <div style="max-width:720px;width:100%">
+          <img src="${qrImg.src}" alt="QR Code" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--hairline)" />
+          <p class="muted" style="margin-top:8px">You can scan directly from this view or open the image.</p>
+        </div>`;
+      openModal('Scan QR Code', content, [
+        { label:'Open Image', href: qrImg.src },
+        { label:'Close', href:'#', onClick:()=>{} }
+      ]);
+    });
+  }
 };
 
 const handleScreenshotUpload = (e) => {

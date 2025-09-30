@@ -115,7 +115,7 @@ const renderOrderItems = () => {
 
 const updateOrderSummary = () => {
   const subtotal = checkoutData.total || 0;
-  const shipping = shippingType === 'delivery' ? 50 : 0; // ₱50 delivery fee
+  const shipping = 0; // No additional shipping cost
   const total = subtotal + shipping;
   
   subtotalEl.textContent = formatPrice(subtotal);

@@ -1,0 +1,21 @@
+[debug] [2025-09-30T16:55:52.454Z] ----------------------------------------------------------------------
+[debug] [2025-09-30T16:55:52.460Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Ron\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2025-09-30T16:55:52.461Z] CLI Version:   14.17.0
+[debug] [2025-09-30T16:55:52.461Z] Platform:      win32
+[debug] [2025-09-30T16:55:52.462Z] Node Version:  v22.15.0
+[debug] [2025-09-30T16:55:52.462Z] Time:          Wed Oct 01 2025 00:55:52 GMT+0800 (Taipei Standard Time)
+[debug] [2025-09-30T16:55:52.462Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-30T16:55:52.474Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-30T16:55:52.475Z] > authorizing via signed-in user (ronlazaro5@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Ron\Desktop\Aurorus_Collections_REBIRTH
+
